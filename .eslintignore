@@ -1,0 +1,6 @@
+.eslintrc.js
+node_modules/*
+.env
+*.yaml
+*.json
+

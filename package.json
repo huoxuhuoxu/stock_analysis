@@ -1,0 +1,19 @@
+{
+  "name": "stock_analysis",
+  "version": "1.0.0",
+  "description": "股票分析、趋势预测、天朝大A股",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test",
+    "start": "node index"
+  },
+  "author": "huoxu_huoxu",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "koa": "^2.5.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "mocha": "^5.2.0"
+  }
+}

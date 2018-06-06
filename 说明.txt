@@ -1,0 +1,54 @@
+
+
+天华院
+    600579
+
+保利地产
+    600048
+
+
+
+保利地产 东方财富网 股价 实时接口
+http://mdfm.eastmoney.com/EM_UBG_MinuteApi/Js/Get?dtype=25&style=tail&check=st&dtformat=HH:mm:ss&cb=jQuery1830005435708003650452_1528091676115&id=6000481&num=10&_=1528092072155
+
+params:
+    dtype: 数据类型 - 查询特定数据
+    style: 头部/尾部 ？tail/head
+    check: ?
+    dtformat: 日期格式
+    cb: 加载资源后执行的回调函数
+    id: 股票编号 对应的 id
+        实际内部 id 尾部 + ‘1’
+    num: 索取的实时数据条数
+    _: 发起请求的时间戳
+
+return:
+    result: true / false
+    message: msg
+    total: 返回数据条数
+    value:
+        pc: 开盘价格
+        data: 
+            {
+                t: 时间,
+                p: 价格,
+                bs、v、pch ? 未知
+            }
+
+保利地产 东方财富网 金额顺差 实时页面
+http://data.eastmoney.com/zjlx/600048.html
+
+
+保利地产 东方财富网 地产板块 实时接口 - 有认证令牌限制
+http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?type=CT&cmd=C.BK04511&sty=FDCS&st=C&sr=-1&p=1&ps=5&lvl=&cb=&js=var%20jspy=[(x)];&token=4f1862fc3b5e77c150a2b985b12db0fd&v=0.7834447127304178&_=1528094939803
+
+
+
+
+
+
+
+
+
+
+
