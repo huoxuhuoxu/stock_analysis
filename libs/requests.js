@@ -7,7 +7,7 @@
 // requests
 const http = require("http");
 const https = require("https");
-const { URL } = require("url");
+const url = require("url");
 const assert = require("assert");
 
 
@@ -31,6 +31,7 @@ const get = async (protocol, url, callback) => {
 };
 
 
+
 /**
  * @description 
  *      post 方式发起请求
@@ -52,32 +53,24 @@ const post = async (protocol, options, data, callback) => {
 };
 
 
+
 /**
  * @description
  *      根据参数生成 请求头与请求体     
  * 
- * @param {*} origin                域名 
- * @param {*} path                  具体路径
+ * @param {*} url_info              URL对象
  * @param {*} body                  数据
  * @param {*} method                发请请求的方式, .eg: post, put, delete, option, ...
  * @param {*} req_content_type      发送数据时的数据格式化方式
  * 
  * @return [ 请求头, 请求体 ]
  */
-const getOptions = (origin, path, body, method, req_content_type) => {
-    const originArr = origin.split("://");
-    const pathArr = originArr[1].split(":");
-    let hostname = pathArr[0], 
-        port = originArr[0] === "http" ? 80 : 443;
-    if (pathArr.length > 1) {
-        port = pathArr[1];
-    }
-
+const getOptions = (url_info, body, method, req_content_type) => {
     const postData = JSON.stringify(body);
     const options = {
-        hostname,
-        port,
-        path,
+        hostname: url_info.hostname,
+        port: url_info.port,
+        path: url.path,
         method,
         headers: {
             "Content-Type": req_content_type,
@@ -86,6 +79,7 @@ const getOptions = (origin, path, body, method, req_content_type) => {
     };
     return [ options,  postData];
 };
+
 
 
 /**
@@ -139,17 +133,20 @@ const callback = async (content_type, resolve, reject, res) => {
  * @description
  *      同一处理 协议, 发起请求的方法等
  * 
- * @param {*} origin        域名
- * @param {*} pathname      具体路径
+ * @param {*} real_url      完整的URL
  * @param {*} body          数据
  * @param {*} method        方法
  * @param {*} param4        
  *      res_content_type: 返回时需要验证返回数据的格式化方式, 不需要验证 ''
  *      req_content_type: 发起请求时存在请求体情况下, 数据的格式化方式
  * 
+ * @desc
+ *      调用时只传了real_url, 直接执行 http(s).get(real_url)
+ * 
+ * 
  * @return Promise
  */
-module.exports = async (origin, pathname, body = {}, method = "GET", 
+module.exports = async (real_url, body = {}, method = "GET", 
     { 
         res_content_type = "",
         req_content_type = "application/json"
@@ -159,22 +156,31 @@ module.exports = async (origin, pathname, body = {}, method = "GET",
     }
 ) => {
 
-    assert(/https?:\/\/.*/.test(origin), "origin-format error");
+    assert(real_url, "request arguments");
+
+    const url_info = url.parse(real_url);
+    assert(/https?:/.test(url_info.protocol), "origin-format error, can only be http, https");
 
     let protocol = http;
-    /^https/.test(origin) && (protocol = https);
+    /^https/.test(url_info.protocol) && (protocol = https);
 
     const cb = callback.bind(null, res_content_type);
 
     if (method.toLowerCase() === "get") {
+
+        if (JSON.stringify(body) === "{}"){
+            return await get(protocol, real_url, cb);
+        } 
+
         let search = "";
         for (let [k, v] of Object.entries(body)){
             search += `&${k}=${v}`;
         }
-        return await get(protocol, `${new URL(pathname, origin).href}?${search.substr(1)}`, cb);
+        return await get(protocol, `${url_info.protocol}//${url_info.host}${url_info.pathname}?${search.substr(1)}`, cb);
+    
     }
 
-    const [ options, data ] = getOptions(origin, pathname, body, method, req_content_type);
+    const [ options, data ] = getOptions(url_info, body, method, req_content_type);
     return await post(protocol, options, data, cb);
 
 }; 

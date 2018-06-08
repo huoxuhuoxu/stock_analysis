@@ -19,7 +19,7 @@ const real_time_task = () => {
 
             const code = wait_codes.shift();
 
-            requests("http://mdfm.eastmoney.com", "/EM_UBG_MinuteApi/Js/Get", {
+            requests("http://mdfm.eastmoney.com/EM_UBG_MinuteApi/Js/Get", {
                 dtype: 25,
                 style: "tail",
                 check: "st",
