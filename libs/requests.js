@@ -1,5 +1,5 @@
 /** 
- *  @description
+ * @description 
  *      提供 请求方法
  * 
  */
@@ -10,6 +10,17 @@ const https = require("https");
 const { URL } = require("url");
 const assert = require("assert");
 
+
+/**
+ * @description
+ *      get 方式发起请求
+ * 
+ * @param {*} protocol          协议, .eg: http, https
+ * @param {*} url               完整的请求地址
+ * @param {*} callback          成功后的回调函数
+ * 
+ * @return Promise
+ */
 const get = async (protocol, url, callback) => {
     return new Promise((resolve, reject) => {
         protocol.get(url, callback.bind(null, resolve, reject))
@@ -19,6 +30,18 @@ const get = async (protocol, url, callback) => {
     });
 };
 
+
+/**
+ * @description 
+ *      post 方式发起请求
+ * 
+ * @param {*} protocol 
+ * @param {*} options           请求头信息
+ * @param {*} data              需要发送的数据（请求体）
+ * @param {*} callback          
+ * 
+ * @return Promise
+ */
 const post = async (protocol, options, data, callback) => {
     return new Promise((resolve, reject) => {
         const req = protocol.request(options, callback.bind(null, resolve, reject));
@@ -28,7 +51,20 @@ const post = async (protocol, options, data, callback) => {
     }); 
 };
 
-const getOptions = (origin, path, body, method, content_type) => {
+
+/**
+ * @description
+ *      根据参数生成 请求头与请求体     
+ * 
+ * @param {*} origin                域名 
+ * @param {*} path                  具体路径
+ * @param {*} body                  数据
+ * @param {*} method                发请请求的方式, .eg: post, put, delete, option, ...
+ * @param {*} req_content_type      发送数据时的数据格式化方式
+ * 
+ * @return [ 请求头, 请求体 ]
+ */
+const getOptions = (origin, path, body, method, req_content_type) => {
     const originArr = origin.split("://");
     const pathArr = originArr[1].split(":");
     let hostname = pathArr[0], 
@@ -44,13 +80,25 @@ const getOptions = (origin, path, body, method, content_type) => {
         path,
         method,
         headers: {
-            "Content-Type": content_type,
+            "Content-Type": req_content_type,
             "Content-Length": Buffer.byteLength(postData)
         }
     };
     return [ options,  postData];
 };
 
+
+/**
+ * @description
+ *      处理返回的数据
+ * 
+ * @param {*} content_type      验证接受的数据采用的格式化方式, .eg: json, txt, ...
+ * @param {*} resolve           Promise.resolve
+ * @param {*} reject            Promise.reject
+ * @param {*} res               response object
+ * 
+ * @return undefined
+ */
 const callback = async (content_type, resolve, reject, res) => {
 
     const { statusCode } = res;
@@ -85,14 +133,38 @@ const callback = async (content_type, resolve, reject, res) => {
     });
 };
 
-module.exports = async (origin, pathname, body = {}, method = "GET", content_type = "application/json") => {
+
+
+/**
+ * @description
+ *      同一处理 协议, 发起请求的方法等
+ * 
+ * @param {*} origin        域名
+ * @param {*} pathname      具体路径
+ * @param {*} body          数据
+ * @param {*} method        方法
+ * @param {*} param4        
+ *      res_content_type: 返回时需要验证返回数据的格式化方式, 不需要验证 ''
+ *      req_content_type: 发起请求时存在请求体情况下, 数据的格式化方式
+ * 
+ * @return Promise
+ */
+module.exports = async (origin, pathname, body = {}, method = "GET", 
+    { 
+        res_content_type = "",
+        req_content_type = "application/json"
+    } = { 
+        res_content_type: "",
+        req_content_type: "application/json"
+    }
+) => {
 
     assert(/https?:\/\/.*/.test(origin), "origin-format error");
 
     let protocol = http;
     /^https/.test(origin) && (protocol = https);
 
-    const cb = callback.bind(null, content_type);
+    const cb = callback.bind(null, res_content_type);
 
     if (method.toLowerCase() === "get") {
         let search = "";
@@ -102,7 +174,7 @@ module.exports = async (origin, pathname, body = {}, method = "GET", content_typ
         return await get(protocol, `${new URL(pathname, origin).href}?${search.substr(1)}`, cb);
     }
 
-    const [ options, data ] = getOptions(origin, pathname, body, method, content_type);
+    const [ options, data ] = getOptions(origin, pathname, body, method, req_content_type);
     return await post(protocol, options, data, cb);
 
 }; 

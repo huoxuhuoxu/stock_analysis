@@ -18,7 +18,7 @@ params:
     dtformat: 日期格式
     cb: 加载资源后执行的回调函数
     id: 股票编号 对应的 id
-        实际内部 id 尾部 + ‘1’
+        实际内部 id 尾部 + ‘1’(不是所有的股都是 + 1)
     num: 索取的实时数据条数
     _: 发起请求的时间戳
 
@@ -45,9 +45,12 @@ http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?type=CT&cmd=C.BK0
 
 
 
+// 全国股市 ...
+http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?type=CT&cmd=C._UIFO&sty=sfcoo&st=z&token=4f1862fc3b5e77c150a2b985b12db0fd&cb=jQuery112407378636087109598_1528454080513&_=1528454080514
 
 
-
+// 深沪 资金顺差
+http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?type=CT&cmd=P.(x),(x)|0000011|3990012&sty=SHSTD|SZSTD&st=z&token=4f1862fc3b5e77c150a2b985b12db0fd&cb=jQuery112407378636087109598_1528454080515&_=1528454080516
 
 
 

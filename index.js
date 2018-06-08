@@ -27,5 +27,11 @@ const listening = () => {
     
 }
 
+const { real_time_task } = require("./spider/main");
+
+{
+    info(real_time_task.description);
+    real_time_task();
+}
 
 
