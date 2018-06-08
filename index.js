@@ -8,7 +8,7 @@ require("dotenv").config();
 
 const assert = require("assert");
 
-const app = require("./service/main");
+const app = require("./app/main");
 const { test } = require("./libs/tools");
 const { info } = require("./libs/logs");
 
