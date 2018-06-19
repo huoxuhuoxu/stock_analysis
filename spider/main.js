@@ -4,8 +4,8 @@
  * 
  */
 
-const requests = require("../libs/requests");
-
+const requests = require("nodejs-requests");
+const { info } = require("../libs/logs");
 
 
 const real_time_task = () => {
@@ -46,6 +46,10 @@ const real_time_task = () => {
         }
 
     }, 10000);
+
+    process.nextTick(() => {
+        info("启动爬虫中, 请稍候 ...");
+    });
 
 };
 real_time_task.description = "实时股价 ...";

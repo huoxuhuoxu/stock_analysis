@@ -16,7 +16,7 @@ const PORT = ~~process.env.PORT;
 
 
 const listening = () => {
-    info(`已启动, 监听 PORT: ${PORT} ...`);
+    info(`已启动 Web Service, 监听 PORT: ${PORT} ...`);
 };
 
 

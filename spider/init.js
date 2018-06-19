@@ -7,7 +7,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const requests = require("../libs/requests");
+const requests = require("nodejs-requests");
 const { info } = require("../libs/logs");
 
 {

@@ -54,11 +54,11 @@ describe ("测试 test 提供的方法", () => {
 
     });
 
-    it ("NaN类型检查", (down) => {
+    it ("NaN类型检查", (done) => {
 
         const nan = NaN;
         assert(!test.isNumber(nan), "未检测出NaN");
-        down();
+        done();
 
     });
 

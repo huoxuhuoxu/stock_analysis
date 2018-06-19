@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test",
-    "start": "node index"
+    "start": "node index",
+    "init": "node spider/init.js"
   },
   "author": "huoxu_huoxu",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nodejs-requests": "^1.0.3"
   }
 }
