@@ -1,0 +1,10 @@
+{
+    "default": "prod",
+    "prod": {
+        "driver": {"ENV": "DB_TYPE"},
+        "host": {"ENV": "DB_HOST"},
+        "database": {"ENV": "DB_DATABASE"},
+        "user": {"ENV": "DB_USERNAME"},
+        "password": {"ENV": "DB_PASSWORD"}
+    }
+}

@@ -1,21 +1,29 @@
 {
   "name": "stock_analysis",
   "version": "1.0.0",
-  "description": "股票分析、趋势预测、天朝大A股",
+  "description": "股票分析、趋势预测、天朝大A股、安东尼系统",
   "main": "index.js",
   "scripts": {
     "test": "mocha test",
     "start": "node index",
-    "init": "node spider/init.js"
+
+    "init": "node app/spider/init.js",
+    "update": "node app/spider/init.js -s update"
   },
   "author": "huoxu_huoxu",
   "license": "ISC",
   "dependencies": {
+    "db-migrate": "^0.11.1",
+    "db-migrate-mysql": "^1.1.10",
     "dotenv": "^6.0.0",
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
-    "mocha": "^5.2.0",
-    "nodejs-requests": "^1.0.3"
+    "mysql": "^2.15.0",
+    "nodejs-requests": "^1.0.3",
+    "optimist": "^0.6.1"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }
