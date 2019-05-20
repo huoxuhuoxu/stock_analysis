@@ -18,8 +18,6 @@ import (
 
 type P struct {
 	name       string        // 股票名称
-	initPrice  float64       // 建仓成本
-	amount     float64       // 持仓
 	realPrice  float64       // 实时价格
 	percentage float64       // 涨跌幅百分比
 	rwMutex    *sync.RWMutex // 锁, 无写冲突, 其实可以不用锁
@@ -59,6 +57,7 @@ func (self *P) positionCalculation(ctx context.Context) {
 				self.percentage = percentage
 				self.realPrice = realPrice
 				// self.rwMutex.Unlock()
+
 			}
 		}
 	}()
@@ -72,11 +71,14 @@ func init() {
 	log.SetFlags(0)
 
 	ps = []*P{
-		&P{"美的集团", 47.7, 1300, 0, 0, &sync.RWMutex{}, "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz000333"},
-		&P{"双汇发展", 25.574, 1700, 0, 0, &sync.RWMutex{}, "https://hq.sinajs.cn/?_=0.5444750447346742&list=sz000895"},
-		&P{"伊利股份", 27.713, 400, 0, 0, &sync.RWMutex{}, "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600887"},
-		&P{"新城控股", 42.521, 500, 0, 0, &sync.RWMutex{}, "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh601155"},
-		&P{"工商银行", 5.665, 8000, 0, 0, &sync.RWMutex{}, "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh601398"},
+		&P{"丰乐种业", 0, 0, &sync.RWMutex{}, "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz000713"},
+		&P{"五洲交通", 0, 0, &sync.RWMutex{}, "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600368"},
+		&P{"双汇发展", 0, 0, &sync.RWMutex{}, "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz000895"},
+		&P{"格力电器", 0, 0, &sync.RWMutex{}, "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600651"},
+		&P{"石大胜华", 0, 0, &sync.RWMutex{}, "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh603028"},
+		&P{"安洁科技", 0, 0, &sync.RWMutex{}, "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz002635"},
+		&P{"来伊份", 0, 0, &sync.RWMutex{}, "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh603777"},
+		&P{"航天科技", 0, 0, &sync.RWMutex{}, "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600677"},
 	}
 }
 
@@ -114,19 +116,18 @@ func show(ctx context.Context) {
 				cmd.Stdout = os.Stdout
 				cmd.Run()
 
-				fmt.Printf("\r\n\r\n\r\n\r\n\r\n  组合收益情况\r\n\r\n\r\n\r\n")
-				var t float64
+				fmt.Println("Real Time:\r\n")
+				fmt.Printf("    %6s %10s %10s%\r\n\r\n", "名称", "价格", "涨幅")
 				for _, p := range ps {
 					if p.realPrice == 0 {
-						fmt.Printf("    %s 暂未拉取数据 \r\n\r\n", p.name)
+						fmt.Printf("    %6s 暂未拉取数据 \r\n\r\n", p.name)
 						continue
 					}
-					tmpV := p.realPrice*p.amount - p.initPrice*p.amount
-					fmt.Printf("    %s %.3f %.2f%% %.3f %.3f %.2f%% \r\n\r\n", p.name, p.realPrice, p.percentage, p.initPrice, tmpV, (p.realPrice-p.initPrice)/p.initPrice*100)
-					t += tmpV
-				}
 
-				fmt.Printf("\r\n\r\n  持仓盈亏 %.3f \r\n\r\n\r\n", t)
+					sRealPrice := fmt.Sprintf("%.2f", p.realPrice)
+					sPercentage := fmt.Sprintf("%.2f", p.percentage)
+					fmt.Printf("    %6s %10s %10s%%\r\n\r\n", p.name, sRealPrice, sPercentage)
+				}
 			}
 		}
 	}()
