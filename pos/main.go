@@ -88,6 +88,7 @@ func init() {
 		&P{name: "安洁科技", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz002635"},
 		&P{name: "来伊份", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh603777"},
 		&P{name: "航天科技", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600677"},
+		&P{name: "青岛啤酒", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600600"},
 	}
 }
 
