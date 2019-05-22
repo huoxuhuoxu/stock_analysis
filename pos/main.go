@@ -82,13 +82,6 @@ func init() {
 	ps = []*P{
 		&P{name: "丰乐种业", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz000713"},
 		&P{name: "五洲交通", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600368"},
-		&P{name: "双汇发展", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz000895"},
-		&P{name: "格力电器", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz000651"},
-		&P{name: "石大胜华", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh603026"},
-		&P{name: "安洁科技", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz002635"},
-		&P{name: "来伊份", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh603777"},
-		&P{name: "航天科技", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600677"},
-		&P{name: "青岛啤酒", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600600"},
 	}
 }
 
