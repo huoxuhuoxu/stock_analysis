@@ -138,7 +138,6 @@ func show(ctx context.Context) {
 				}
 			}
 
-			fmt.Println("\r\n    吃进/持有五洲通信, 动态PE足够低(2), 18年年度增长及19年第一季度增长足够高, 静态PE处于15PE以下, 足够平稳")
 			fmt.Println("    别冲动!!! 三思而后行, 行则果断")
 		}
 	}()
