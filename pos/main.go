@@ -82,7 +82,6 @@ func init() {
 	ps = []*P{
 		&P{name: "丰乐种业", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz000713"},
 		&P{name: "五洲交通", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600368"},
-		&P{name: "圣农发展", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz002299"},
 	}
 }
 
@@ -138,6 +137,7 @@ func show(ctx context.Context) {
 				}
 			}
 
+			fmt.Println("\r\n")
 			fmt.Println("    别冲动!!! 三思而后行, 行则果断")
 		}
 	}()
