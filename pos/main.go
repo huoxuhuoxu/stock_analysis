@@ -84,6 +84,8 @@ func init() {
 		&P{name: "五洲交通", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600368"},
 		&P{name: "海康威视", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz002415"},
 		&P{name: "海螺水泥", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600585"},
+		&P{name: "美的集团", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz000333"},
+		&P{name: "伊利股份", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600887"},
 	}
 }
 
@@ -125,7 +127,7 @@ func show(ctx context.Context) {
 				fmt.Printf("    %6s %10s %10s %10s %10s %10s %10s\r\n\r\n", "名称", "价格", "涨幅", "开盘价", "高", "低", "成交量(亿)")
 				for _, p := range ps {
 					if p.realPrice == 0 {
-						fmt.Printf("    %6s 暂未拉取数据 \r\n\r\n", p.name)
+						fmt.Printf("    %6s 暂未拉取数据 \r\n", p.name)
 						continue
 					}
 
@@ -135,7 +137,7 @@ func show(ctx context.Context) {
 					sHighed := fmt.Sprintf("%.2f", p.highed)
 					sLowered := fmt.Sprintf("%.2f", p.lowered)
 					sAmount := fmt.Sprintf("%.2f", p.amount)
-					fmt.Printf("    %6s %10s %10s%% %10s %10s %10s %10s\r\n\r\n", p.name, sRealPrice, sPercentage, sStarted, sHighed, sLowered, sAmount)
+					fmt.Printf("    %6s %10s %10s%% %10s %10s %10s %10s\r\n", p.name, sRealPrice, sPercentage, sStarted, sHighed, sLowered, sAmount)
 				}
 			}
 
