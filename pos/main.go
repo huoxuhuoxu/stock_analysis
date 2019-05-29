@@ -143,7 +143,7 @@ func show(ctx context.Context) {
 			}
 
 			fmt.Println("\r\n")
-			fmt.Println("    别冲动!!! 三思而后行, 行则果断")
+			fmt.Println("    别冲动!!!")
 		}
 	}()
 }
