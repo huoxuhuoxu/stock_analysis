@@ -139,6 +139,7 @@ func show(ctx context.Context) {
 				}
 			}
 
+			fmt.Println("\r\n")
 			fmt.Println("\r\n   别冲动!!!")
 			fmt.Println("   赚多少取决于选股, 亏多少取决于本金, 谨记.")
 		}
