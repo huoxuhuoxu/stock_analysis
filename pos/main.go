@@ -80,14 +80,10 @@ func init() {
 	log.SetFlags(0)
 
 	ps = []*P{
-		&P{name: "万科地产", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz000002"},
 		&P{name: "双汇发展", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz000895"},
-		&P{name: "五洲交通", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600368"},
 		&P{name: "海康威视", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz002415"},
 		&P{name: "海螺水泥", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600585"},
 		&P{name: "美的集团", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz000333"},
-		&P{name: "伊利股份", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600887"},
-		&P{name: "宝钢集团", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600019"},
 	}
 }
 
@@ -144,6 +140,7 @@ func show(ctx context.Context) {
 			}
 
 			fmt.Println("\r\n   别冲动!!!")
+			fmt.Println("   赚多少取决于选股, 亏多少取决于本金, 谨记.")
 		}
 	}()
 }
