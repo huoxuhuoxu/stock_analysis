@@ -81,10 +81,8 @@ func init() {
 
 	ps = []*P{
 		&P{name: "海康威视", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz002415"},
-		// &P{name: "海螺水泥", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600585"},
+		&P{name: "海通证券", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sh600837"},
 		&P{name: "美的集团", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz000333"},
-		&P{name: "一英洛华", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz000795"},
-		&P{name: "安洁科技", rwMutex: &sync.RWMutex{}, url: "https://hq.sinajs.cn/?_=0.8803355743806824&list=sz002635"},
 	}
 }
 
