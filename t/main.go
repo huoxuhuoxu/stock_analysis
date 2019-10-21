@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"compress/gzip"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -45,12 +46,17 @@ import (
 *
  */
 
+var (
+	handTurnoverRate float64
+)
+
 func init() {
+	flag.Float64Var(&handTurnoverRate, "hs", 30.0, "换手率")
+	flag.Parse()
 	log.SetFlags(0)
 }
 
 func main() {
-
 	// pageIndex := "1"
 	// pageCount := "10000"
 	// initUrl := "http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?cb=jQuery112407378636087109598_1528454080519&type=CT&token=4f1862fc3b5e77c150a2b985b12db0fd&js=(%7Bdata%3A%5B(x)%5D%2CrecordsTotal%3A(tot)%2CrecordsFiltered%3A(tot)%7D)&cmd=C._A&sty=FCOIATC&st=(ChangePercent)&sr=-1&p=" + pageIndex + "&ps=" + pageCount + "&_=1528454080520"
@@ -125,7 +131,7 @@ func main() {
 				continue
 			}
 
-			if tmpV > 30 {
+			if tmpV > handTurnoverRate {
 				fmt.Printf("|"+strings.Repeat("%-14s", 4)+"\r\n",
 					arr[2], arr[1], arr[5], arr[15])
 
