@@ -118,8 +118,8 @@ func main() {
 	)
 	for _, data := range datas {
 		arr := strings.Split(data, ",")
-		// 排除 ST, 创业板
-		if arr[4] != "-" && !strings.HasPrefix(arr[2], "*ST") && !strings.HasPrefix(arr[2], "ST") && !strings.HasPrefix(arr[1], "300") {
+		// 排除 ST, 创业板, 科创板
+		if arr[4] != "-" && !strings.HasPrefix(arr[2], "*ST") && !strings.HasPrefix(arr[2], "ST") && !strings.HasPrefix(arr[1], "300") && !strings.HasPrefix(arr[1], "688") {
 			tmpStrFloat := arr[15]
 			tmpV, err := strconv.ParseFloat(tmpStrFloat, 64)
 			if err != nil {
