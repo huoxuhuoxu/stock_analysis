@@ -20,11 +20,13 @@ const (
 var (
 	cje  float64 // 成交额
 	ltzb float64 // 流通占比
+	hs   float64 // 换手
 )
 
 func init() {
 	flag.Float64Var(&cje, "cje", 3.0, "成交额")
 	flag.Float64Var(&ltzb, "ltzb", 0.004, "流通占比")
+	flag.Float64Var(&hs, "hs", 2.0, "换手率")
 	flag.Parse()
 	log.SetFlags(0)
 }
@@ -84,8 +86,8 @@ func main() {
 
 	lll := getL()
 
-	fmt.Printf("%4s, %4s, %4s, %4s, %4s, %4s, %4s, %4s \r\n",
-		"代码", "名称", "涨跌幅", "净流入", "成交占比", "成交额", "流通市值", "流通占比")
+	fmt.Printf("%4s, %4s, %4s, %4s, %4s, %4s, %4s, %4s, %4s \r\n",
+		"代码", "名称", "涨跌幅", "主力流入", "成交占比", "成交额", "流通市值", "流通占比", "换手率")
 	for _, v := range list {
 		g := v.(map[string]interface{})
 
@@ -111,12 +113,15 @@ func main() {
 		tmpl2, _ := strconv.ParseFloat(infos[7], 64)
 		tmpl2 = tmpl2 / 100000000
 
+		// 换手率
+		tmpl3, _ := strconv.ParseFloat(infos[15], 64)
+
 		// 筛选
-		if tmpll < ltzb || tmpl2 < cje {
+		if tmpll < ltzb || tmpl2 < cje || tmpl3 < hs {
 			continue
 		}
 
-		fmt.Printf("%s, %s, %.2f%%, %.2f亿, %.2f%%, %.2f亿, %.2f亿, %.4f%%",
+		fmt.Printf("%s, %s, %6.2f%%, %6.2f亿, %6.2f%%, %6.2f亿, %6.2f亿, %6.4f%%, %6.2f%%",
 			code,
 			g["f14"].(string),
 			g["f3"].(float64),
@@ -125,6 +130,7 @@ func main() {
 			tmpl2,
 			tmpl,
 			tmpll,
+			tmpl3,
 		)
 
 		fmt.Println("")
