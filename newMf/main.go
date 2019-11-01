@@ -12,6 +12,8 @@ var (
 	minTurnoverToCirculation float64 = 0.02 // 成交占比流通最少 万2
 	minMainP                 float64 = 5    // 主力流入占比最低 5%
 	mainMainV                float64 = 0.1  // 主力流入最少 0.1 亿
+
+	// 其实换手率就可以体现 成交额占流通市值的比例
 )
 
 func init() {
