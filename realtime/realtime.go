@@ -79,7 +79,6 @@ func (self *RealTime) FormatOutput(list base.GeneralDatas) {
 		"涨幅",
 		"成交额",
 		"主力占比",
-		"流通",
 		"换手率",
 		"5min",
 		"开盘价",
@@ -88,6 +87,7 @@ func (self *RealTime) FormatOutput(list base.GeneralDatas) {
 		"开盘波动",
 		"预低点",
 		"低点",
+		"振幅",
 		"操作建议",
 	)
 
@@ -106,7 +106,6 @@ func (self *RealTime) FormatOutput(list base.GeneralDatas) {
 			upAndDownRange = fmt.Sprintf("  %.2f%%", v.UpAndDownRange)
 			turnover       = fmt.Sprintf("   %.2f亿", v.Turnover)
 			mainP          = fmt.Sprintf("    %.2f%%", v.MainP)
-			circulation    = fmt.Sprintf("    %.2f亿", v.Circulation)
 			min5           = fmt.Sprintf("   %.2f%%", v.Min5)
 			changehands    = fmt.Sprintf("   %.2f%%", v.Changehands)
 			open           = fmt.Sprintf("   %.2f", v.Open)
@@ -114,6 +113,7 @@ func (self *RealTime) FormatOutput(list base.GeneralDatas) {
 			currentPrice   = fmt.Sprintf("      %.2f", v.CurrentPrice)
 			estimatedLow   = fmt.Sprintf("      %.2f", v.Open*self.estimatedLowCoefficient)
 			low            = fmt.Sprintf("   %.2f", v.Low)
+			amplitude      = fmt.Sprintf("     %.2f%%", v.Amplitude)
 		)
 
 		// 如果开盘涨幅 > 9%, 则认为收盘价 = 涨停
@@ -152,7 +152,6 @@ func (self *RealTime) FormatOutput(list base.GeneralDatas) {
 			upAndDownRange,
 			turnover,
 			mainP,
-			circulation,
 			changehands,
 			min5,
 			open,
@@ -161,6 +160,7 @@ func (self *RealTime) FormatOutput(list base.GeneralDatas) {
 			diffOcStr,
 			estimatedLow,
 			low,
+			amplitude,
 			action,
 		)
 	}

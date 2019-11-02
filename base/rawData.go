@@ -88,6 +88,7 @@ func GetDatas() map[string]*GeneralData {
 		min5, _ := strconv.ParseFloat(arr[13], 64)
 		changehands, _ := strconv.ParseFloat(arr[15], 64)
 		circulation, _ := strconv.ParseFloat(arr[19], 64)
+		amplitude, _ := strconv.ParseFloat(arr[8], 64)
 
 		gds[arr[1]] = &GeneralData{
 			StockType:      arr[0],
@@ -103,6 +104,7 @@ func GetDatas() map[string]*GeneralData {
 			Min5:           min5,
 			Changehands:    changehands,
 			Circulation:    circulation / 100000000,
+			Amplitude:      amplitude,
 		}
 	}
 

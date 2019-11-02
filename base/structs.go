@@ -15,6 +15,7 @@ type GeneralData struct {
 	Min5           float64 // 5分钟涨速
 	Changehands    float64 // 换手率
 	Circulation    float64 // 流通市值
+	Amplitude      float64 // 振幅
 
 	// 所有的流入与流出其实只是一个资金意向问题, 一笔交易有钱出去就意味着有钱进来, 盈亏只是这笔交易关联的上下文的价格的差价
 	MainV   float64 // 主力净流入(由超大单与大单组成)
