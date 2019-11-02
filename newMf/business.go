@@ -12,32 +12,6 @@ import (
 )
 
 // ------------------------------------ 获取实时基础数据
-type GeneralData struct {
-	stockType      string  // 上市类型
-	stockCode      string  // 代码
-	stockName      string  // 名称
-	currentPrice   float64 // 当前价格
-	upAndDownRange float64 // 涨跌幅度
-	turnover       float64 // 成交额
-	high           float64 // 盘中最低
-	low            float64 // 盘中最高
-	open           float64 // 开盘价
-	close          float64 // 前个交易日收盘价
-	min5           float64 // 5分钟涨速
-	changehands    float64 // 换手率
-	circulation    float64 // 流通市值
-
-	turnoverToCirculation float64 // 成交额占流通市值比例
-
-	// 所有的流入与流出其实只是一个资金意向问题, 一笔交易有钱出去就意味着有钱进来, 盈亏只是这笔交易关联的上下文的价格的差价
-	mainV   float64 // 主力净流入(由超大单与大单组成)
-	cBigV   float64 // 超大单净流入
-	bigV    float64 // 大单净流入
-	middleV float64 // 中单净流入
-	smallV  float64 // 小单净流入
-
-	mainP float64 // 主力流入占比
-}
 
 func GetDatas() map[string]*GeneralData {
 	gds := make(map[string]*GeneralData)
@@ -116,20 +90,19 @@ func GetDatas() map[string]*GeneralData {
 		circulation, _ := strconv.ParseFloat(arr[19], 64)
 
 		gds[arr[1]] = &GeneralData{
-			stockType:             arr[0],
-			stockCode:             arr[1],
-			stockName:             arr[2],
-			currentPrice:          currentPrice,
-			upAndDownRange:        upAndDownRange,
-			turnover:              turnover,
-			high:                  high,
-			low:                   low,
-			open:                  open,
-			close:                 close,
-			min5:                  min5,
-			changehands:           changehands,
-			circulation:           circulation,
-			turnoverToCirculation: turnover / circulation,
+			stockType:      arr[0],
+			stockCode:      arr[1],
+			stockName:      arr[2],
+			currentPrice:   currentPrice,
+			upAndDownRange: upAndDownRange,
+			turnover:       turnover / 100000000,
+			high:           high,
+			low:            low,
+			open:           open,
+			close:          close,
+			min5:           min5,
+			changehands:    changehands,
+			circulation:    circulation,
 		}
 	}
 
@@ -200,7 +173,7 @@ func GetMoneyData() map[string]*GeneralData {
 	for _, v := range list {
 		g := v.(map[string]interface{})
 		if gd, ok := gds[g["f12"].(string)]; ok {
-			gd.mainV = g["f62"].(float64)
+			gd.mainV = g["f62"].(float64) / 100000000
 			gd.cBigV = g["f66"].(float64)
 			gd.bigV = g["f72"].(float64)
 			gd.middleV = g["f78"].(float64)
