@@ -102,7 +102,7 @@ func GetDatas() map[string]*GeneralData {
 			close:          close,
 			min5:           min5,
 			changehands:    changehands,
-			circulation:    circulation,
+			circulation:    circulation / 100000000,
 		}
 	}
 

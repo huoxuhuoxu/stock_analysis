@@ -102,7 +102,7 @@ func GetDatas() map[string]*GeneralData {
 			Close:          close,
 			Min5:           min5,
 			Changehands:    changehands,
-			Circulation:    circulation,
+			Circulation:    circulation / 100000000,
 		}
 	}
 
@@ -178,7 +178,8 @@ func GetMoneyData() map[string]*GeneralData {
 			gd.BigV = g["f72"].(float64)
 			gd.MiddleV = g["f78"].(float64)
 			gd.SmallV = g["f84"].(float64)
-			gd.MainP = g["f69"].(float64)
+			// gd.MainP = g["f69"].(float64) // 超大单流入
+			gd.MainP = g["f184"].(float64) // 主力流入
 		}
 	}
 

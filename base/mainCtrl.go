@@ -27,7 +27,7 @@ type MainCtrlParams struct {
 	IsDebug        bool          // debug模式
 }
 
-func NewMainCtrl(taskType string, mcp *MainCtrlParams) (*MainControl, error) {
+func NewMainCtrl(mcp *MainCtrlParams) (*MainControl, error) {
 	var (
 		mc  *MainControl
 		err error
@@ -48,9 +48,10 @@ func NewMainCtrl(taskType string, mcp *MainCtrlParams) (*MainControl, error) {
 			mc.Output, _ = diyLog.NewDiyLog(diyLog.DEBUG, diyLog.STDOUT)
 		} else {
 			mc.Output, _ = diyLog.NewDiyLog(diyLog.DEBUG, diyLog.FILE_RECORD)
-			mc.Output.SetOutputParams("logs", taskType+"-"+mcp.LogPrefix+"-")
+			mc.Output.SetOutputParams("logs", mcp.LogPrefix+"-")
 		}
 
+		// 可能需要加入不重启模式 ...
 		// Process restart
 		mc.Sr = systemRp.NewSystemRp(mcp.SrIntervalTime)
 		mc.Sr.SubscribeBeforeFunc(mc.Output.Close)
