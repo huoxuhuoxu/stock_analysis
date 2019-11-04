@@ -148,6 +148,11 @@ func (self *RealTime) FormatOutput(list base.GeneralDatas) {
 			todayFail += 1.0
 		}
 
+		// 不存在博弈空间
+		if v.UpAndDownRange > 9.9 {
+			continue
+		}
+
 		// Output
 		fmt.Printf(strings.Repeat("%+6s ", 16)+"\r\n",
 			score,
