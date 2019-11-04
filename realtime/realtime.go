@@ -53,6 +53,10 @@ func (self *RealTime) loop() {
 			var list base.GeneralDatas
 			for _, gd := range gds {
 				gd.Score = gd.Changehands + gd.MainP
+				if gd.Turnover < 0.5 || gd.Changehands < 0.5 {
+					continue
+				}
+
 				list = append(list, gd)
 			}
 			sort.Sort(list)
