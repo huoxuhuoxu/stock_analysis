@@ -23,7 +23,7 @@ func NewRealTime(mc *base.MainControl, isDebug bool) (*RealTime, error) {
 	self := &RealTime{
 		MainControl:               mc,
 		loopIntervalTime:          time.Second * 10,
-		filterLen:                 50,
+		filterLen:                 40,
 		estimatedCloseCoefficient: 1.01,
 		estimatedLowCoefficient:   0.995,
 		isDebug:                   isDebug,
@@ -53,7 +53,17 @@ func (self *RealTime) loop() {
 			var list base.GeneralDatas
 			for _, gd := range gds {
 				gd.Score = gd.Changehands + gd.MainP
-				if gd.Turnover < 0.5 || gd.Changehands < 0.5 {
+
+				// 限制最低交易额(5000w)
+				if gd.Turnover < 0.5 {
+					continue
+				}
+				// 限制最低换手率(0.4%)
+				if gd.Changehands < 0.4 {
+					continue
+				}
+				// 限制最大流通盘(200亿)
+				if gd.Circulation > 200 {
 					continue
 				}
 
