@@ -62,8 +62,8 @@ func (self *RealTime) loop() {
 				if gd.Changehands < 0.4 {
 					continue
 				}
-				// 限制最大流通盘(200亿)
-				if gd.Circulation > 200 {
+				// 限制最大流通盘(100亿)
+				if gd.Circulation > 100 {
 					continue
 				}
 
