@@ -1,0 +1,27 @@
+{
+    "000001": {
+        "name": "上证指数",
+		"stockCode": "000001",
+		"affiliatedExchange": "1"
+    },
+    "399001": {
+        "name": "深证成指",
+		"stockCode": "399001",
+		"affiliatedExchange": "2"
+    },
+    "000016": {
+        "name": "上证50",
+		"stockCode": "000016",
+		"affiliatedExchange": "1"
+    },
+    "000300": {
+        "name": "沪深300",
+		"stockCode": "000300",
+		"affiliatedExchange": "1"
+    },
+    "000002": {
+        "name": "A股指数",
+		"stockCode": "000002",
+		"affiliatedExchange": "1"
+    }
+}
