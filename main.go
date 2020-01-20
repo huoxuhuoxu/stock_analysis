@@ -35,8 +35,10 @@ func handler(w http.ResponseWriter, _ *http.Request) {
 			initV = 50000
 		} else if k >= "20/01/16" && k < "20/01/17" {
 			initV = 70000
-		} else {
+		} else if k >= "20/01/17" && k < "20/01/20" {
 			initV = 80000
+		} else {
+			initV = 100000
 		}
 
 		foodItems = append(foodItems, int(data[k]-initV))
