@@ -46,8 +46,8 @@ func handler(w http.ResponseWriter, _ *http.Request) {
 
 	// 画图表
 	line := charts.NewLine()
-	line.SetGlobalOptions(charts.TitleOpts{Title: "商品期货"})
-	line.AddXAxis(nameItems).AddYAxis("盈亏图", foodItems,
+	line.SetGlobalOptions(charts.TitleOpts{Title: "收益曲线"})
+	line.AddXAxis(nameItems).AddYAxis("盈亏", foodItems,
 		// charts.LabelTextOpts{Show: true},
 		charts.AreaStyleOpts{Opacity: 0.2},
 		charts.LineOpts{Smooth: true},
