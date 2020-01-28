@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"log"
 	"net/http"
 	"sort"
@@ -13,11 +14,13 @@ import (
 func handler(w http.ResponseWriter, _ *http.Request) {
 	var bufferW bytes.Buffer
 
-	line1 := income()
-	line1.Render(&bufferW)
+	line, str2 := income()
+	bar, str := income2()
 
-	line3 := income2()
-	line3.Render(&bufferW)
+	bufferW.Write([]byte(str))
+	bufferW.Write([]byte(str2))
+	line.Render(&bufferW)
+	bar.Render(&bufferW)
 
 	// 替换标题
 	htmlV := bufferW.String()
@@ -28,7 +31,7 @@ func handler(w http.ResponseWriter, _ *http.Request) {
 }
 
 // 收益曲线 与 剔除手续费 曲线
-func income() *charts.Line {
+func income() (*charts.Line, string) {
 	var (
 		nameItems  []string
 		foodItems  []int // 总结算
@@ -79,16 +82,27 @@ func income() *charts.Line {
 		charts.AreaStyleOpts{Opacity: 0.2},
 		charts.LineOpts{Smooth: true},
 	)
-	return line
+
+	// 收益率, 剥离手续费后
+	diffRate := float32(foodItems2[len(foodItems2)-1]-foodItems[len(foodItems)-1]) / 100000.0 * 100
+	str := `
+	<div style="text-align:center;">
+		<p>收益率, 剥离手续费后: %.2f%%</p>
+	</div>
+	`
+	str = fmt.Sprintf(str, diffRate)
+
+	return line, str
 }
 
-// 手续费 与 收益曲线 折线图
-func income2() *charts.Bar {
+// 手续费 与 收益曲线 折线图, 综合胜率
+func income2() (*charts.Bar, string) {
 	var (
 		nameItems  []string
 		foodItems  []int // 收益
 		foodItems2 []int // 手续费
 		previous   int   // 上一个偏差值
+		winCount   int   // 胜率总数
 		keySlice   sort.StringSlice
 	)
 
@@ -116,13 +130,19 @@ func income2() *charts.Bar {
 			initV = 100000
 		}
 
+		var v int
 		if i != 0 {
-			foodItems = append(foodItems, int(data[k]-initV)-previous)
+			v = int(data[k]-initV) - previous
 		} else {
-			foodItems = append(foodItems, int(data[k]-initV))
+			v = int(data[k] - initV)
+		}
+
+		if v > 0 {
+			winCount++
 		}
 
 		previous = int(data[k] - initV)
+		foodItems = append(foodItems, v)
 		foodItems2 = append(foodItems2, int(-handlingFee[k]))
 	}
 
@@ -137,7 +157,17 @@ func income2() *charts.Bar {
 		AddYAxis("收益", foodItems, charts.BarOpts{Stack: "stack"}).
 		AddYAxis("手续费", foodItems2, charts.BarOpts{Stack: "stack"})
 
-	return bar
+	// 综合
+	str := `
+	<div style="text-align:center;">
+		<p>胜率: %.2f%%</p>
+		<p>收益率: %.2f%%</p>
+	</div>
+	`
+	rateOfReturn := (float32(data[keySlice[len(keySlice)-1]]) - 100000.0) / 100000.0 * 100
+	str = fmt.Sprintf(str, float32(winCount)/float32(len(foodItems))*100, rateOfReturn)
+
+	return bar, str
 }
 
 func main() {
