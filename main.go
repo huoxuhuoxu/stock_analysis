@@ -60,8 +60,10 @@ func income() (*charts.Line, string) {
 			initV = 70000
 		} else if k >= "20/01/17" && k < "20/01/20" {
 			initV = 80000
-		} else {
+		} else if k >= "20/01/20" && k < "20/02/03" {
 			initV = 100000
+		} else {
+			initV = 110000
 		}
 
 		foodItems = append(foodItems, int(data[k]-initV))
@@ -84,7 +86,7 @@ func income() (*charts.Line, string) {
 	)
 
 	// 收益率, 剥离手续费后
-	diffRate := float32(foodItems2[len(foodItems2)-1]-foodItems[len(foodItems)-1]) / 100000.0 * 100
+	diffRate := float32(foodItems2[len(foodItems2)-1]-foodItems[len(foodItems)-1]) / 110000.0 * 100
 	str := `
 	<div style="text-align:center;">
 		<p>收益率, 剥离手续费后: %.2f%%</p>
@@ -126,8 +128,10 @@ func income2() (*charts.Bar, string) {
 			initV = 70000
 		} else if k >= "20/01/17" && k < "20/01/20" {
 			initV = 80000
-		} else {
+		} else if k >= "20/01/20" && k < "20/02/03" {
 			initV = 100000
+		} else {
+			initV = 110000
 		}
 
 		var v int
@@ -164,7 +168,7 @@ func income2() (*charts.Bar, string) {
 		<p>收益率: %.2f%%</p>
 	</div>
 	`
-	rateOfReturn := (float32(data[keySlice[len(keySlice)-1]]) - 100000.0) / 100000.0 * 100
+	rateOfReturn := (float32(data[keySlice[len(keySlice)-1]]) - 110000.0) / 110000.0 * 100
 	str = fmt.Sprintf(str, float32(winCount)/float32(len(foodItems))*100, rateOfReturn)
 
 	return bar, str
