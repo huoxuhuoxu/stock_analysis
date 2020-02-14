@@ -11,6 +11,10 @@ import (
 	"github.com/go-echarts/go-echarts/charts"
 )
 
+const (
+	MONEY = 120000.0
+)
+
 func handler(w http.ResponseWriter, _ *http.Request) {
 	var bufferW bytes.Buffer
 
@@ -49,22 +53,7 @@ func income() (*charts.Line, string) {
 	// 计算盈亏
 	for _, k := range keySlice {
 		nameItems = append(nameItems, k)
-		var initV = 0.0
-		if k >= "19/11/07" && k < "19/11/11" {
-			initV = 20000
-		} else if k >= "19/11/11" && k < "19/11/13" {
-			initV = 25000
-		} else if k >= "19/11/13" && k < "20/01/16" {
-			initV = 50000
-		} else if k >= "20/01/16" && k < "20/01/17" {
-			initV = 70000
-		} else if k >= "20/01/17" && k < "20/01/20" {
-			initV = 80000
-		} else if k >= "20/01/20" && k < "20/02/03" {
-			initV = 100000
-		} else {
-			initV = 110000
-		}
+		var initV = getMoney(k)
 
 		foodItems = append(foodItems, int(data[k]-initV))
 
@@ -86,7 +75,7 @@ func income() (*charts.Line, string) {
 	)
 
 	// 收益率, 剥离手续费后
-	diffRate := float32(foodItems2[len(foodItems2)-1]-foodItems[len(foodItems)-1]) / 110000.0 * 100
+	diffRate := float32(foodItems2[len(foodItems2)-1]-foodItems[len(foodItems)-1]) / MONEY * 100
 	str := `
 	<div style="text-align:center;">
 		<p>收益率, 剥离手续费后: %.2f%%</p>
@@ -117,22 +106,7 @@ func income2() (*charts.Bar, string) {
 	// 计算盈亏
 	for i, k := range keySlice {
 		nameItems = append(nameItems, k)
-		var initV = 0.0
-		if k >= "19/11/07" && k < "19/11/11" {
-			initV = 20000
-		} else if k >= "19/11/11" && k < "19/11/13" {
-			initV = 25000
-		} else if k >= "19/11/13" && k < "20/01/16" {
-			initV = 50000
-		} else if k >= "20/01/16" && k < "20/01/17" {
-			initV = 70000
-		} else if k >= "20/01/17" && k < "20/01/20" {
-			initV = 80000
-		} else if k >= "20/01/20" && k < "20/02/03" {
-			initV = 100000
-		} else {
-			initV = 110000
-		}
+		var initV = getMoney(k)
 
 		var v int
 		if i != 0 {
@@ -168,10 +142,33 @@ func income2() (*charts.Bar, string) {
 		<p>收益率: %.2f%%</p>
 	</div>
 	`
-	rateOfReturn := (float32(data[keySlice[len(keySlice)-1]]) - 110000.0) / 110000.0 * 100
+	rateOfReturn := (float32(data[keySlice[len(keySlice)-1]]) - MONEY) / MONEY * 100
 	str = fmt.Sprintf(str, float32(winCount)/float32(len(foodItems))*100, rateOfReturn)
 
 	return bar, str
+}
+
+// 时间与本金关系
+func getMoney(k string) float64 {
+	var initV float64
+	if k >= "19/11/07" && k < "19/11/11" {
+		initV = 20000
+	} else if k >= "19/11/11" && k < "19/11/13" {
+		initV = 25000
+	} else if k >= "19/11/13" && k < "20/01/16" {
+		initV = 50000
+	} else if k >= "20/01/16" && k < "20/01/17" {
+		initV = 70000
+	} else if k >= "20/01/17" && k < "20/01/20" {
+		initV = 80000
+	} else if k >= "20/01/20" && k < "20/02/03" {
+		initV = 100000
+	} else if k >= "20/02/03" && k < "20/02/12" {
+		initV = 110000
+	} else {
+		initV = MONEY
+	}
+	return initV
 }
 
 func main() {
