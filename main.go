@@ -2,7 +2,9 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"sort"
@@ -11,6 +13,12 @@ import (
 	"github.com/go-echarts/go-echarts/charts"
 )
 
+/*
+	目前账号期货公司手续费
+		螺纹: 万2
+		豆粕, 棕榈, 燃油, 白糖: 万1
+*/
+
 const (
 	MONEY = 120000.0
 )
@@ -18,8 +26,14 @@ const (
 func handler(w http.ResponseWriter, _ *http.Request) {
 	var bufferW bytes.Buffer
 
-	line, str2 := income()
-	bar, str := income2()
+	buf, _ := ioutil.ReadFile("./data.json")
+	var arrData []interface{}
+	json.Unmarshal(buf, &arrData)
+	data := arrData[0].(map[string]interface{})
+	handlingFee := arrData[1].(map[string]interface{})
+
+	line, str2 := income(data, handlingFee)
+	bar, str := income2(data, handlingFee)
 
 	bufferW.Write([]byte(str))
 	bufferW.Write([]byte(str2))
@@ -35,7 +49,7 @@ func handler(w http.ResponseWriter, _ *http.Request) {
 }
 
 // 收益曲线 与 剔除手续费 曲线
-func income() (*charts.Line, string) {
+func income(data, handlingFee map[string]interface{}) (*charts.Line, string) {
 	var (
 		nameItems  []string
 		foodItems  []int // 总结算
@@ -55,10 +69,10 @@ func income() (*charts.Line, string) {
 		nameItems = append(nameItems, k)
 		var initV = getMoney(k)
 
-		foodItems = append(foodItems, int(data[k]-initV))
+		foodItems = append(foodItems, int(data[k].(float64)-initV))
 
-		fee += handlingFee[k]
-		foodItems2 = append(foodItems2, int(data[k]-initV+fee))
+		fee += handlingFee[k].(float64)
+		foodItems2 = append(foodItems2, int(data[k].(float64)-initV+fee))
 	}
 
 	// 画图表
@@ -87,7 +101,7 @@ func income() (*charts.Line, string) {
 }
 
 // 手续费 与 收益曲线 折线图, 综合胜率
-func income2() (*charts.Bar, string) {
+func income2(data, handlingFee map[string]interface{}) (*charts.Bar, string) {
 	var (
 		nameItems  []string
 		foodItems  []int // 收益
@@ -110,18 +124,18 @@ func income2() (*charts.Bar, string) {
 
 		var v int
 		if i != 0 {
-			v = int(data[k]-initV) - previous
+			v = int(data[k].(float64)-initV) - previous
 		} else {
-			v = int(data[k] - initV)
+			v = int(data[k].(float64) - initV)
 		}
 
 		if v > 0 {
 			winCount++
 		}
 
-		previous = int(data[k] - initV)
+		previous = int(data[k].(float64) - initV)
 		foodItems = append(foodItems, v)
-		foodItems2 = append(foodItems2, int(-handlingFee[k]))
+		foodItems2 = append(foodItems2, int(-handlingFee[k].(float64)))
 	}
 
 	// 画图表
@@ -142,7 +156,7 @@ func income2() (*charts.Bar, string) {
 		<p>收益率: %.2f%%</p>
 	</div>
 	`
-	rateOfReturn := (float32(data[keySlice[len(keySlice)-1]]) - MONEY) / MONEY * 100
+	rateOfReturn := (float32(data[keySlice[len(keySlice)-1]].(float64)) - MONEY) / MONEY * 100
 	str = fmt.Sprintf(str, float32(winCount)/float32(len(foodItems))*100, rateOfReturn)
 
 	return bar, str
