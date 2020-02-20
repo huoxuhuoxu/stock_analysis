@@ -40,7 +40,7 @@ func handler(w http.ResponseWriter, _ *http.Request) {
 		<p>收益率, 剥离手续费后: %.2f%%</p>
 	</div>
 	`
-	str = fmt.Sprintf(str, fee+moneyWin)
+	str2 = fmt.Sprintf(str2, fee+moneyWin)
 
 	bufferW.Write([]byte(str))
 	bufferW.Write([]byte(str2))
