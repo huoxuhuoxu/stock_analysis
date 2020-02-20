@@ -32,8 +32,15 @@ func handler(w http.ResponseWriter, _ *http.Request) {
 	data := arrData[0].(map[string]interface{})
 	handlingFee := arrData[1].(map[string]interface{})
 
-	line, str2 := income(data, handlingFee)
-	bar, str := income2(data, handlingFee)
+	line, fee := income(data, handlingFee)
+	bar, moneyWin, str := income2(data, handlingFee)
+
+	str2 := `
+	<div style="text-align:center;">
+		<p>收益率, 剥离手续费后: %.2f%%</p>
+	</div>
+	`
+	str = fmt.Sprintf(str, fee+moneyWin)
 
 	bufferW.Write([]byte(str))
 	bufferW.Write([]byte(str2))
@@ -49,7 +56,7 @@ func handler(w http.ResponseWriter, _ *http.Request) {
 }
 
 // 收益曲线 与 剔除手续费 曲线
-func income(data, handlingFee map[string]interface{}) (*charts.Line, string) {
+func income(data, handlingFee map[string]interface{}) (*charts.Line, float32) {
 	var (
 		nameItems  []string
 		foodItems  []int // 总结算
@@ -90,18 +97,12 @@ func income(data, handlingFee map[string]interface{}) (*charts.Line, string) {
 
 	// 收益率, 剥离手续费后
 	diffRate := float32(foodItems2[len(foodItems2)-1]-foodItems[len(foodItems)-1]) / MONEY * 100
-	str := `
-	<div style="text-align:center;">
-		<p>收益率, 剥离手续费后: %.2f%%</p>
-	</div>
-	`
-	str = fmt.Sprintf(str, diffRate)
 
-	return line, str
+	return line, diffRate
 }
 
 // 手续费 与 收益曲线 折线图, 综合胜率
-func income2(data, handlingFee map[string]interface{}) (*charts.Bar, string) {
+func income2(data, handlingFee map[string]interface{}) (*charts.Bar, float32, string) {
 	var (
 		nameItems  []string
 		foodItems  []int // 收益
@@ -159,7 +160,7 @@ func income2(data, handlingFee map[string]interface{}) (*charts.Bar, string) {
 	rateOfReturn := (float32(data[keySlice[len(keySlice)-1]].(float64)) - MONEY) / MONEY * 100
 	str = fmt.Sprintf(str, float32(winCount)/float32(len(foodItems))*100, rateOfReturn)
 
-	return bar, str
+	return bar, rateOfReturn, str
 }
 
 // 时间与本金关系
