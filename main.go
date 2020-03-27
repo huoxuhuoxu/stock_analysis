@@ -141,7 +141,7 @@ func income2(data, handlingFee map[string]interface{}) (*charts.Bar, float32, st
 			winCount++
 		}
 
-		previous = int(data[k].(float64) - initV)
+		previous = int(vv - initV)
 		foodItems = append(foodItems, v)
 		foodItems2 = append(foodItems2, int(-handlingFee[k].(float64)))
 	}
@@ -164,7 +164,7 @@ func income2(data, handlingFee map[string]interface{}) (*charts.Bar, float32, st
 		<p>收益率: %.2f%%</p>
 	</div>
 	`
-	rateOfReturn := (float32(data[keySlice[len(keySlice)-1]].(float64)) - MONEY) / MONEY * 100
+	rateOfReturn := (float32(data[keySlice[len(keySlice)-1]].(float64)) + PROFIT_MONEY - MONEY) / MONEY * 100
 	str = fmt.Sprintf(str, float32(winCount)/float32(len(foodItems))*100, rateOfReturn)
 
 	return bar, rateOfReturn, str
