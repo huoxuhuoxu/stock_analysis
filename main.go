@@ -77,10 +77,15 @@ func income(data, handlingFee map[string]interface{}) (*charts.Line, float32) {
 		nameItems = append(nameItems, k)
 		var initV = getMoney(k)
 
-		foodItems = append(foodItems, int(data[k].(float64)-initV))
+		var vv = data[k].(float64)
+		if k >= "20/03/27" {
+			vv += PROFIT_MONEY
+		}
+
+		foodItems = append(foodItems, int(vv-initV))
 
 		fee += handlingFee[k].(float64)
-		foodItems2 = append(foodItems2, int(data[k].(float64)-initV+fee))
+		foodItems2 = append(foodItems2, int(vv-initV+fee))
 	}
 
 	// 画图表
