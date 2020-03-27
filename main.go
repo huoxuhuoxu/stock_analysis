@@ -20,7 +20,8 @@ import (
 */
 
 const (
-	MONEY = 120000.0
+	MONEY        = 120000.0
+	PROFIT_MONEY = 4000.0
 )
 
 func handler(w http.ResponseWriter, _ *http.Request) {
@@ -123,11 +124,17 @@ func income2(data, handlingFee map[string]interface{}) (*charts.Bar, float32, st
 		nameItems = append(nameItems, k)
 		var initV = getMoney(k)
 
+		// 补偿获利取现的资金
+		vv := data[k].(float64)
+		if k >= "20/03/27" {
+			vv += PROFIT_MONEY
+		}
+
 		var v int
 		if i != 0 {
-			v = int(data[k].(float64)-initV) - previous
+			v = int(vv-initV) - previous
 		} else {
-			v = int(data[k].(float64) - initV)
+			v = int(vv - initV)
 		}
 
 		if v > 0 {
