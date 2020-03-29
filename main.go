@@ -20,7 +20,8 @@ import (
 */
 
 const (
-	MONEY = 120000.0
+	MONEY        = 120000.0
+	PROFIT_MONEY = 4000.0
 )
 
 func handler(w http.ResponseWriter, _ *http.Request) {
@@ -76,10 +77,15 @@ func income(data, handlingFee map[string]interface{}) (*charts.Line, float32) {
 		nameItems = append(nameItems, k)
 		var initV = getMoney(k)
 
-		foodItems = append(foodItems, int(data[k].(float64)-initV))
+		var vv = data[k].(float64)
+		if k >= "20/03/27" {
+			vv += PROFIT_MONEY
+		}
+
+		foodItems = append(foodItems, int(vv-initV))
 
 		fee += handlingFee[k].(float64)
-		foodItems2 = append(foodItems2, int(data[k].(float64)-initV+fee))
+		foodItems2 = append(foodItems2, int(vv-initV+fee))
 	}
 
 	// 画图表
@@ -123,18 +129,24 @@ func income2(data, handlingFee map[string]interface{}) (*charts.Bar, float32, st
 		nameItems = append(nameItems, k)
 		var initV = getMoney(k)
 
+		// 补偿获利取现的资金
+		vv := data[k].(float64)
+		if k >= "20/03/27" {
+			vv += PROFIT_MONEY
+		}
+
 		var v int
 		if i != 0 {
-			v = int(data[k].(float64)-initV) - previous
+			v = int(vv-initV) - previous
 		} else {
-			v = int(data[k].(float64) - initV)
+			v = int(vv - initV)
 		}
 
 		if v > 0 {
 			winCount++
 		}
 
-		previous = int(data[k].(float64) - initV)
+		previous = int(vv - initV)
 		foodItems = append(foodItems, v)
 		foodItems2 = append(foodItems2, int(-handlingFee[k].(float64)))
 	}
@@ -157,7 +169,7 @@ func income2(data, handlingFee map[string]interface{}) (*charts.Bar, float32, st
 		<p>收益率: %.2f%%</p>
 	</div>
 	`
-	rateOfReturn := (float32(data[keySlice[len(keySlice)-1]].(float64)) - MONEY) / MONEY * 100
+	rateOfReturn := (float32(data[keySlice[len(keySlice)-1]].(float64)) + PROFIT_MONEY - MONEY) / MONEY * 100
 	str = fmt.Sprintf(str, float32(winCount)/float32(len(foodItems))*100, rateOfReturn)
 
 	return bar, rateOfReturn, str
