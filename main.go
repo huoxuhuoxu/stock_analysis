@@ -79,7 +79,7 @@ func income(data, handlingFee map[string]interface{}) (*charts.Line, float32) {
 
 		var vv = data[k].(float64)
 		if k >= "20/03/27" {
-			vv += PROFIT_MONEY
+			vv += getProfitMoney(k)
 		}
 
 		foodItems = append(foodItems, int(vv-initV))
@@ -132,7 +132,7 @@ func income2(data, handlingFee map[string]interface{}) (*charts.Bar, float32, st
 		// 补偿获利取现的资金
 		vv := data[k].(float64)
 		if k >= "20/03/27" {
-			vv += PROFIT_MONEY
+			vv += getProfitMoney(k)
 		}
 
 		var v int
@@ -169,7 +169,7 @@ func income2(data, handlingFee map[string]interface{}) (*charts.Bar, float32, st
 		<p>收益率: %.2f%%</p>
 	</div>
 	`
-	rateOfReturn := (float32(data[keySlice[len(keySlice)-1]].(float64)) + PROFIT_MONEY - MONEY) / MONEY * 100
+	rateOfReturn := (float32(data[keySlice[len(keySlice)-1]].(float64)) + float32(getProfitMoney("")) - MONEY) / MONEY * 100
 	str = fmt.Sprintf(str, float32(winCount)/float32(len(foodItems))*100, rateOfReturn)
 
 	return bar, rateOfReturn, str
@@ -196,6 +196,15 @@ func getMoney(k string) float64 {
 		initV = MONEY
 	}
 	return initV
+}
+
+// 时间与提取盈利关系
+func getProfitMoney(k string) float64 {
+	if k >= "20/03/27" && k < "20/03/30" {
+		return 4000.0
+	} else {
+		return 8000.0
+	}
 }
 
 func main() {
