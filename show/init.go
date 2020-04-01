@@ -55,7 +55,7 @@ var varietys = map[string]*Variety{
 		Amount:                   20,
 		Aims:                     3100,
 		TmpHigh:                  2950,
-		TmpLow:                   2840,
+		TmpLow:                   2800,
 		RemainingVolatilityValue: 60 * 30,
 		IsShow:                   true,
 	},
