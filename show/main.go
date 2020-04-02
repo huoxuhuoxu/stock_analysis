@@ -34,7 +34,7 @@ func main() {
 }
 
 func show() {
-	t := time.Tick(time.Second * 2)
+	t := time.Tick(time.Second * 5)
 	var keys sort.StringSlice
 
 	for k, v := range varietys {
@@ -72,7 +72,7 @@ func show() {
 }
 
 func getData(k, dataUrl string) {
-	t := time.Tick(time.Second * 2)
+	t := time.Tick(time.Second * 5)
 	client := &http.Client{}
 	for {
 		select {
