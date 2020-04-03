@@ -47,6 +47,18 @@ type Variety struct {
 }
 
 var varietys = map[string]*Variety{
+	"a2009": &Variety{
+		Name:                     "豆一2009",
+		Code:                     "a2009",
+		OriginDataUrl:            "114_a2009_qt?callbackName=aa&cb=aa&_=1585880873855",
+		SpotPrice:                4400,
+		Amount:                   10,
+		Aims:                     4000,
+		TmpHigh:                  0,
+		TmpLow:                   0,
+		RemainingVolatilityValue: 0,
+		IsShow:                   true,
+	},
 	"m2005": &Variety{
 		Name:                     "豆粕2005",
 		Code:                     "m2005",
