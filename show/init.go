@@ -43,6 +43,7 @@ type Variety struct {
 	VolatilityValue          float64 // 当前波动值(high-low)
 	RemainingVolatilityValue float64 // 剩余波动空间(近期每日波动 * 交割前剩余交易日)
 	Trend                    string  // 趋势
+	Describe                 string  // 说明
 	IsShow                   bool    // 是否获取及输出
 }
 
@@ -57,6 +58,7 @@ var varietys = map[string]*Variety{
 		TmpAims:                  4700,
 		RemainingVolatilityValue: 0,
 		Trend:                    "试空",
+		Describe:                 "短期承压, 等周线金叉",
 		IsShow:                   true,
 	},
 	"m2101": &Variety{
@@ -69,6 +71,7 @@ var varietys = map[string]*Variety{
 		TmpAims:                  2800,
 		RemainingVolatilityValue: 0,
 		Trend:                    "多",
+		Describe:                 "周线, 做多",
 		IsShow:                   true,
 	},
 	"c2009": &Variety{
@@ -81,6 +84,7 @@ var varietys = map[string]*Variety{
 		TmpAims:                  2980,
 		RemainingVolatilityValue: 0,
 		Trend:                    "空",
+		Describe:                 "05交割有基差修复需求, 短期看回踩",
 		IsShow:                   true,
 	},
 	"CF009": &Variety{
@@ -93,6 +97,7 @@ var varietys = map[string]*Variety{
 		TmpAims:                  11000,
 		RemainingVolatilityValue: 0,
 		Trend:                    "购",
+		Describe:                 "6/7 月, 蝗灾预期",
 		IsShow:                   true,
 	},
 	"I2009": &Variety{
@@ -105,6 +110,7 @@ var varietys = map[string]*Variety{
 		TmpAims:                  0,
 		RemainingVolatilityValue: 0,
 		Trend:                    "沽",
+		Describe:                 "看空今年黑色, 短期不见底",
 		IsShow:                   true,
 	},
 	"AU2006": &Variety{
@@ -117,6 +123,7 @@ var varietys = map[string]*Variety{
 		TmpAims:                  0,
 		RemainingVolatilityValue: 0,
 		Trend:                    "沽",
+		Describe:                 "存粹就是想空, 但是7/8月美国国债, 要翻多",
 		IsShow:                   true,
 	},
 	"Y2009": &Variety{
@@ -129,6 +136,7 @@ var varietys = map[string]*Variety{
 		TmpAims:                  5800,
 		RemainingVolatilityValue: 0,
 		Trend:                    "试多",
+		Describe:                 "金叉, 看一波反弹",
 		IsShow:                   true,
 	},
 	"JD2009": &Variety{
@@ -141,6 +149,7 @@ var varietys = map[string]*Variety{
 		TmpAims:                  0,
 		RemainingVolatilityValue: 0,
 		Trend:                    "等,空",
+		Describe:                 "金叉, 但是下影线两根, 预期需求不足, 等等看",
 		IsShow:                   true,
 	},
 
