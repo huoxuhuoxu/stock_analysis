@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -17,7 +18,13 @@ import (
 
 var (
 	contractChan = make(chan *Contract, 1)
+	mode         int
 )
+
+func init() {
+	flag.IntVar(&mode, "mode", 0, "0: all, 1: 主货, 2: 主货+权")
+	flag.Parse()
+}
 
 func main() {
 	interrupt := make(chan os.Signal, 1)
@@ -43,6 +50,14 @@ func show() {
 		}
 	}
 	sort.Sort(keys)
+	switch mode {
+	case 0:
+		keys = sort.StringSlice{"a2009", "m2101", "c2009", "I2009", "CF009", "AU2006", "Y2009", "JD2009"}
+	case 1:
+		keys = sort.StringSlice{"a2009", "m2101", "c2009"}
+	case 2:
+		keys = sort.StringSlice{"a2009", "m2101", "c2009", "I2009", "CF009", "AU2006"}
+	}
 
 	for {
 		select {
@@ -51,15 +66,16 @@ func show() {
 			cmd.Stdout = os.Stdout
 			cmd.Run()
 
-			// 代码, 现价, 现期基差, 预期低点, 预期高点,  波动值, 涨跌值, 预期持仓
-			fmt.Printf("name, price, spot, low-w, high-w, vol, val, amount \n")
+			// 代码, 现价, 现期基差, 短期目标, 趋势判断
+			// fmt.Printf("name, price, spot, tmp-aims, trend \n")
 			for _, k := range keys {
-				v := varietys[k]
-				basis := 0.0 // 基差
-				if v.SpotPrice != 0 {
-					basis = v.SpotPrice - v.Price
+				if v, ok := varietys[k]; ok {
+					basis := 0.0 // 基差
+					if v.SpotPrice != 0 {
+						basis = v.SpotPrice - v.Price
+					}
+					fmt.Printf("%s %.0f %.0f %.0f %s\n", v.Code, v.Price, basis, v.TmpAims, v.Trend)
 				}
-				fmt.Printf("%s %.0f %.0f %.0f %.0f %.0f %.0f %d\n", v.Code, v.Price, basis, v.TmpLow, v.TmpHigh, v.VolatilityValue, v.Value, v.Amount)
 			}
 		case contract := <-contractChan:
 			if v, ok := varietys[contract.code]; ok {
