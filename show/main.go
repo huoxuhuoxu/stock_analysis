@@ -56,7 +56,7 @@ func show() {
 	case 1:
 		keys = sort.StringSlice{"a2009", "m2101", "c2009"}
 	case 2:
-		keys = sort.StringSlice{"a2009", "m2101", "c2009", "I2009", "CF009", "AU2006"}
+		keys = sort.StringSlice{"a2009", "m2101", "c2009", "Y2009", "JD2009"}
 	}
 
 	for {

@@ -147,7 +147,7 @@ var varietys = map[string]*Variety{
 		Trend:                    "试多",
 		Describe:                 "金叉, 看一波反弹",
 		Logic:                    "",
-		IsShow:                   false,
+		IsShow:                   true,
 	},
 	"JD2009": &Variety{
 		Name:                     "鸡蛋2009",
@@ -161,7 +161,7 @@ var varietys = map[string]*Variety{
 		Trend:                    "等,空",
 		Describe:                 "金叉, 但是下影线两根, 预期需求不足, 等等看",
 		Logic:                    "",
-		IsShow:                   false,
+		IsShow:                   true,
 	},
 	"rb2101": &Variety{
 		Name:                     "螺纹2101",
