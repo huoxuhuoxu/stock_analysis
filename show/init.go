@@ -172,7 +172,10 @@ var varietys = map[string]*Variety{
 		Aims:                     3400,
 		TmpAims:                  0,
 		RemainingVolatilityValue: 0,
-		IsShow:                   false,
+		Trend:                    "",
+		Describe:                 "",
+		Logic:                    "",
+		IsShow:                   true,
 	},
 	"fu2101": &Variety{
 		Name:                     "燃油2101",
