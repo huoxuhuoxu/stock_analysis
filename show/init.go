@@ -103,8 +103,24 @@ var varietys = map[string]*Variety{
 		Trend:                    "购",
 		Describe:                 "6/7 月, 蝗灾预期",
 		Logic:                    "近两年服贸不会好了",
-		IsShow:                   true,
+		IsShow:                   false,
 	},
+	"rb2101": &Variety{
+		Name:                     "螺纹2101",
+		Code:                     "rb",
+		OriginDataUrl:            "113_rb2101_qt?callbackName=aa&cb=aa&_=1585753542283",
+		SpotPrice:                3386,
+		Amount:                   4,
+		Aims:                     0,
+		TmpAims:                  0,
+		RemainingVolatilityValue: 0,
+		Trend:                    "空",
+		Describe:                 "..., 震荡向下, 3000筑波底反弹",
+		Logic:                    "大级别金叉向下",
+		IsShow:                   false,
+	},
+
+	// 看不懂的, 今年不做的, 要专注
 	"Y2009": &Variety{
 		Name:                     "豆油2009",
 		Code:                     "Y",
@@ -133,8 +149,6 @@ var varietys = map[string]*Variety{
 		Logic:                    "",
 		IsShow:                   true,
 	},
-
-	// 看不懂的, 今年不做的, 要专注
 	"I2009": &Variety{
 		Name:                     "铁矿石2009",
 		Code:                     "I",
@@ -161,20 +175,6 @@ var varietys = map[string]*Variety{
 		Trend:                    "沽",
 		Describe:                 "存粹就是想空, 但是7/8月美国国债, 要翻多",
 		Logic:                    "未来的世界是通胀还是通缩, 我认为, 通缩",
-		IsShow:                   false,
-	},
-	"rb2101": &Variety{
-		Name:                     "螺纹2101",
-		Code:                     "rb",
-		OriginDataUrl:            "113_rb2101_qt?callbackName=aa&cb=aa&_=1585753542283",
-		SpotPrice:                3388,
-		Amount:                   0,
-		Aims:                     3400,
-		TmpAims:                  0,
-		RemainingVolatilityValue: 0,
-		Trend:                    "",
-		Describe:                 "",
-		Logic:                    "",
 		IsShow:                   false,
 	},
 	"fu2101": &Variety{

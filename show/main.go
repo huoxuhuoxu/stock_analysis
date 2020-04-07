@@ -52,11 +52,11 @@ func show() {
 	sort.Sort(keys)
 	switch mode {
 	case 0:
-		keys = sort.StringSlice{"a2009", "m2101", "c2009", "Y2009", "JD2009", "CF009"}
+		keys = sort.StringSlice{"a2009", "m2101", "c2009", "rb2101", "CF009"}
 	case 1:
 		keys = sort.StringSlice{"a2009", "m2101", "c2009"}
 	case 2:
-		keys = sort.StringSlice{"a2009", "m2101", "c2009", "Y2009", "JD2009"}
+		keys = sort.StringSlice{"a2009", "m2101", "c2009", "rb2101"}
 	}
 
 	for {
