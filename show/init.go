@@ -105,6 +105,8 @@ var varietys = map[string]*Variety{
 		Logic:                    "近两年服贸不会好了",
 		IsShow:                   false,
 	},
+
+	// 看不懂的, 今年不做的, 要专注
 	"rb2101": &Variety{
 		Name:                     "螺纹2101",
 		Code:                     "rb",
@@ -119,8 +121,6 @@ var varietys = map[string]*Variety{
 		Logic:                    "大级别金叉向下",
 		IsShow:                   false,
 	},
-
-	// 看不懂的, 今年不做的, 要专注
 	"Y2009": &Variety{
 		Name:                     "豆油2009",
 		Code:                     "Y",
