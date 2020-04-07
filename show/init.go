@@ -146,7 +146,8 @@ var varietys = map[string]*Variety{
 		RemainingVolatilityValue: 0,
 		Trend:                    "试多",
 		Describe:                 "金叉, 看一波反弹",
-		IsShow:                   false,
+		Logic:                    "",
+		IsShow:                   true,
 	},
 	"JD2009": &Variety{
 		Name:                     "鸡蛋2009",
