@@ -160,6 +160,7 @@ var varietys = map[string]*Variety{
 		RemainingVolatilityValue: 0,
 		Trend:                    "等,空",
 		Describe:                 "金叉, 但是下影线两根, 预期需求不足, 等等看",
+		Logic:                    "",
 		IsShow:                   false,
 	},
 	"rb2101": &Variety{
