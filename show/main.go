@@ -74,7 +74,7 @@ func show() {
 					if v.SpotPrice != 0 {
 						basis = v.SpotPrice - v.Price
 					}
-					fmt.Printf("%s %.0f %.0f %.0f %.0f %s\n", v.Code, v.Price, basis, v.Value, v.TmpAims, v.Trend)
+					fmt.Printf("%s %.0f %.0f %.0f %.0f %s\n", v.Code, v.Price, basis, v.Value, v.Aims, v.Trend)
 				}
 			}
 		case contract := <-contractChan:

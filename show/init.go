@@ -86,7 +86,7 @@ var varietys = map[string]*Variety{
 		Aims:                     2100,
 		TmpAims:                  2980,
 		RemainingVolatilityValue: 0,
-		Trend:                    "空",
+		Trend:                    "空多",
 		Describe:                 "05交割有基差修复需求, 短期看回踩",
 		Logic:                    "乙醇产量受原油价格影响下降, 国内玉米丰收+美国玉米累库",
 		IsShow:                   true,
