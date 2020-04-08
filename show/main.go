@@ -22,7 +22,7 @@ var (
 )
 
 func init() {
-	flag.IntVar(&mode, "mode", 0, "0: all, 1: 主货, 2: 主货+权")
+	flag.IntVar(&mode, "mode", 1, "level相关优先级及输出")
 	flag.Parse()
 }
 
@@ -31,7 +31,7 @@ func main() {
 	signal.Notify(interrupt, syscall.SIGINT, syscall.SIGTERM)
 
 	for k, variety := range varietys {
-		if variety.IsShow {
+		if variety.IsShow && variety.Level <= mode {
 			go getData(k, ORIGIN_URL+variety.OriginDataUrl)
 		}
 	}
@@ -41,24 +41,34 @@ func main() {
 }
 
 func show() {
-	t := time.Tick(time.Second * 5)
-	var keys sort.StringSlice
+	var keys []string
 
-	for k, v := range varietys {
-		if v.IsShow {
-			keys = append(keys, k)
+	// 按优先级分组
+	var arr = make([][]string, mode, mode)
+	for key, v := range varietys {
+		if v.IsShow && v.Level <= mode {
+			i := v.Level - 1
+			arr[i] = append(arr[i], key)
 		}
 	}
-	sort.Sort(keys)
-	switch mode {
-	case 0:
-		keys = sort.StringSlice{"a2009", "m2101", "c2009", "rb2101", "CF009"}
-	case 1:
-		keys = sort.StringSlice{"a2009", "m2101", "c2009"}
-	case 2:
-		keys = sort.StringSlice{"a2009", "m2101", "c2009", "rb2101"}
+
+	// 分组排序后汇总为一个按照优先级排序的有序key组
+	for _, group := range arr {
+		if len(group) > 1 {
+			var ks sort.StringSlice
+			for _, k := range group {
+				ks = append(ks, k)
+			}
+			sort.Sort(ks)
+			group = ks
+		}
+		keys = append(keys, group...)
+		keys = append(keys, "")
 	}
 
+	// 1s刷新输出
+	length := len(keys)
+	t := time.Tick(time.Second * 1)
 	for {
 		select {
 		case <-t:
@@ -67,29 +77,36 @@ func show() {
 			cmd.Run()
 
 			// 代码, 现价, 现期基差, 短期目标, 趋势判断
-			// fmt.Printf("name, price, spot, tmp-aims, trend \n")
-			for _, k := range keys {
+			// fmt.Printf("name, price, value, spot, trend \n")
+			for i, k := range keys {
+				if k == "" {
+					if i+1 != length {
+						fmt.Println("------------")
+					}
+					continue
+				}
 				if v, ok := varietys[k]; ok {
 					basis := 0.0 // 基差
 					if v.SpotPrice != 0 {
 						basis = v.SpotPrice - v.Price
 					}
-					fmt.Printf("%s %.0f %.0f %.0f %.0f %s\n", v.Code, v.Price, basis, v.Value, v.Aims, v.Trend)
+					fmt.Printf("%s %.0f %.0f %.0f %s\n", v.Name, v.Price, v.Value, basis, v.Trend)
 				}
 			}
 		case contract := <-contractChan:
 			if v, ok := varietys[contract.code]; ok {
 				v.Price = contract.price
-				v.VolatilityValue = contract.high - contract.low
 				v.Value = contract.price - contract.close
 			}
 		}
 	}
 }
 
+// 3s更新一次数据
 func getData(k, dataUrl string) {
-	t := time.Tick(time.Second * 5)
+	t := time.Tick(time.Second * 4)
 	client := &http.Client{}
+
 	for {
 		select {
 		case <-t:
