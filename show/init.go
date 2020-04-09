@@ -59,7 +59,7 @@ var varietys = map[string]*Variety{
 	"m2101": &Variety{
 		Name:          "豆",
 		OriginDataUrl: "114_m2101_qt?callbackName=aa&cb=aa&_=1585752611719",
-		SpotPrice:     3207.5,
+		SpotPrice:     3182.5,
 		Amount:        16,
 		Aims:          3100,
 		Trend:         "2830,多",
@@ -81,7 +81,7 @@ var varietys = map[string]*Variety{
 	"CS2009": &Variety{
 		Name:          "淀",
 		OriginDataUrl: "114_cs2009_qt?callbackName=aa&cb=aa&_=1586350881813",
-		SpotPrice:     2406,
+		SpotPrice:     2406.67,
 		Amount:        6,
 		Aims:          2580,
 		Trend:         "2360,多",
@@ -92,7 +92,7 @@ var varietys = map[string]*Variety{
 	"JD2009": &Variety{
 		Name:          "蛋",
 		OriginDataUrl: "114_jd2009_qt?callbackName=aa&cb=aa&_=1586162496980",
-		SpotPrice:     2924,
+		SpotPrice:     3070,
 		Amount:        0,
 		Aims:          0,
 		Trend:         "4340,空",
