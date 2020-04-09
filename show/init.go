@@ -111,17 +111,6 @@ var varietys = map[string]*Variety{
 		Level:         3,
 		IsShow:        true,
 	},
-	"RM009": &Variety{
-		Name:          "菜",
-		OriginDataUrl: "115_RM009_qt?callbackName=aa&cb=aa&_=1586353237839",
-		SpotPrice:     2330,
-		Amount:        4,
-		Aims:          2450,
-		Trend:         "短多",
-		Describe:      "水产业旺季, 进口油菜籽规格较严, 养殖业复苏",
-		Level:         2,
-		IsShow:        true,
-	},
 	"CS2009": &Variety{
 		Name:          "淀",
 		OriginDataUrl: "114_cs2009_qt?callbackName=aa&cb=aa&_=1586350881813",
