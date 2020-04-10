@@ -78,17 +78,6 @@ var varietys = map[string]*Variety{
 		Level:         2,
 		IsShow:        true,
 	},
-	"CS2009": &Variety{
-		Name:          "淀",
-		OriginDataUrl: "114_cs2009_qt?callbackName=aa&cb=aa&_=1586350881813",
-		SpotPrice:     2406.67,
-		Amount:        6,
-		Aims:          2580,
-		Trend:         "2360,多",
-		Describe:      "周线金叉, 大趋势向上, 长多, 蛋糕, 布丁用料",
-		Level:         1,
-		IsShow:        true,
-	},
 	"JD2009": &Variety{
 		Name:          "蛋",
 		OriginDataUrl: "114_jd2009_qt?callbackName=aa&cb=aa&_=1586162496980",
