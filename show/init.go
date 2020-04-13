@@ -76,7 +76,7 @@ var varietys = map[string]*Variety{
 		Trend:         "2030,多",
 		Describe:      "05交割有基差修复需求, 短期看回踩, 长期看趋势不变, 多",
 		Level:         2,
-		IsShow:        true,
+		IsShow:        false,
 	},
 	"JD2009": &Variety{
 		Name:          "蛋",
@@ -87,6 +87,6 @@ var varietys = map[string]*Variety{
 		Trend:         "4340,空",
 		Describe:      "金叉, 但是下影线两根, 预期需求不足, 高空",
 		Level:         3,
-		IsShow:        true,
+		IsShow:        false,
 	},
 }
