@@ -86,11 +86,11 @@ func show() {
 					continue
 				}
 				if v, ok := varietys[k]; ok {
-					basis := 0.0 // 基差
-					if v.SpotPrice != 0 {
-						basis = v.SpotPrice - v.Price
-					}
-					fmt.Printf("%s %.0f %.0f %.0f %s\n", v.Name, v.Price, v.Value, basis, v.Trend)
+					// basis := 0.0 // 基差
+					// if v.SpotPrice != 0 {
+					// 	basis = v.SpotPrice - v.Price
+					// }
+					fmt.Printf("%s %.0f\n", v.Name, v.Price)
 				}
 			}
 		case contract := <-contractChan:
@@ -102,9 +102,9 @@ func show() {
 	}
 }
 
-// 3s更新一次数据
+// 2s更新一次数据
 func getData(k, dataUrl string) {
-	t := time.Tick(time.Second * 4)
+	t := time.Tick(time.Second * 2)
 	client := &http.Client{}
 
 	for {
