@@ -67,6 +67,17 @@ var varietys = map[string]*Variety{
 		Level:         2,
 		IsShow:        true,
 	},
+	"MA009": &Variety{
+		Name:          "醇",
+		OriginDataUrl: "115_MA009_qt?callbackName=aa&cb=aa&_=1586842655155",
+		SpotPrice:     1760,
+		Amount:        0,
+		Aims:          0,
+		Trend:         "",
+		Describe:      "",
+		Level:         2,
+		IsShow:        true,
+	},
 	"c2009": &Variety{
 		Name:          "玉",
 		OriginDataUrl: "114_c2009_qt?callbackName=aa&cb=aa&_=1585757187349",
