@@ -79,9 +79,9 @@ var varietys = map[string]*Variety{
 		Amount:        0,
 		Aims:          0,
 		Trend:         "",
-		Describe:      "",
+		Describe:      "原油带着化工崩盘了, ..., 砍仓",
 		Level:         1,
-		IsShow:        true,
+		IsShow:        false,
 	},
 	"c2009": &Variety{
 		Name:          "玉",
