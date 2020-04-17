@@ -56,6 +56,11 @@ var varietys = map[string]*Variety{
 		Level:         1,
 		IsShow:        true,
 	},
+	/*
+		受巴西大豆, 美大豆到港量影响, 美大豆价格不断近期新低
+		进口国外猪肉打压国内猪肉价格影响
+		短期豆粕低位横盘，甚至会在破新低, 目标01合约, 2720
+	*/
 	"m2101": &Variety{
 		Name:          "豆",
 		OriginDataUrl: "114_m2101_qt?callbackName=aa&cb=aa&_=1585752611719",
