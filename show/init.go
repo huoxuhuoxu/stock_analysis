@@ -70,7 +70,7 @@ var varietys = map[string]*Variety{
 		Trend:         "2830,多",
 		Describe:      "周线看还未启动, 多",
 		Level:         2,
-		IsShow:        false,
+		IsShow:        true,
 	},
 	"MA009": &Variety{
 		Name:          "醇",
@@ -81,7 +81,7 @@ var varietys = map[string]*Variety{
 		Trend:         "",
 		Describe:      "原油带着化工崩盘了, ..., 砍仓",
 		Level:         1,
-		IsShow:        false,
+		IsShow:        true,
 	},
 	"c2009": &Variety{
 		Name:          "玉",
