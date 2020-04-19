@@ -31,78 +31,74 @@ type Contract struct {
 
 // 品种
 type Variety struct {
-	Name          string  // 商品名称
-	OriginDataUrl string  // 数据源头
-	Price         float64 // 当前价格
-	Value         float64 // 涨跌值
-	SpotPrice     float64 // 现货价格
-	Amount        uint8   // 预计建仓数
-	Aims          float64 // 长期目标价位
-	Trend         string  // 操作趋势
-	Describe      string  // 说明
-	Level         int     // 优先级, 1: 优先事项, 2: 逐步进行 3: 可试可不试, 4: 观察, 等待, 有极好的机会可试
-	IsShow        bool    // 是否获取及输出
+	Name           string  // 商品名称
+	OriginDataUrl  string  // 数据源头
+	Price          float64 // 当前价格
+	Value          float64 // 涨跌值
+	SpotPrice      float64 // 现货价格
+	Aims           string  // 目标范围
+	Describe       string  // 说明
+	PricePrecision uint8   // 价格精度
+	Level          int     // 优先级, 1: 优先事项, 2: 逐步进行 3: 可试可不试, 4: 观察, 等待, 有极好的机会可试
+	IsShow         bool    // 是否获取及输出
+	// 还需要关联标的物价格, 比如 美原油/铁矿石/美豆/美黄金 ...
 }
 
+// 请记住, 期货是给远期现货定价的, 而不是用现货现在的价格给期货定价, 谨记
 var varietys = map[string]*Variety{
-	"a2009": &Variety{
-		Name:          "一",
-		OriginDataUrl: "114_a2009_qt?callbackName=aa&cb=aa&_=1585880873855",
-		SpotPrice:     4500,
-		Amount:        10,
-		Aims:          4150,
-		Trend:         "试空",
-		Describe:      "短期承压, 等周线金叉",
-		Level:         1,
-		IsShow:        true,
+	"sc2009": &Variety{
+		Name:          "原油",
+		OriginDataUrl: "142_sc2009_qt?callbackName=aa&cb=aa&_=1587309656220",
+		SpotPrice:     0,
+		Aims:          "250~270",
+		Describe: `
+			假设五月原油价格是其实际供需进而产生的, 
+			那么后续月份的现在价格需要加上时间周期的仓储费用, 由买家买单,
+			但一个月后基本面不改善, 价格也会到五月的价格, 仓储费用就由卖家买单,
+			我的观点, 下半年要么不会复苏, 要么稳健复苏, 并且远月保持高位的价格是仓储费的叠加,
+			从时间周期的角度上看, 实际原油的价格只会降低, 最终买方需要支付的其实是卖方仓储的费用,
+			暂看震荡下行
+		`,
+		Level:          1,
+		PricePrecision: 1,
+		IsShow:         true,
 	},
-	/*
-		受巴西大豆, 美大豆到港量影响, 美大豆价格不断近期新低
-		进口国外猪肉打压国内猪肉价格影响
-		短期豆粕低位横盘，甚至会在破新低, 目标01合约, 2720
-	*/
+	"au2012": &Variety{
+		Name:          "黄金",
+		OriginDataUrl: "113_au2012_qt?callbackName=aa&cb=aa&_=1587309117276",
+		SpotPrice:     0,
+		Aims:          "0",
+		Describe: `
+			暂时没有看法, 但是看技术面进入平台, 遇阻, 下跌/回踩 是大概率事件
+		`,
+		Level:          2,
+		PricePrecision: 2,
+		IsShow:         true,
+	},
+	"rb2101": &Variety{
+		Name:          "螺纹",
+		OriginDataUrl: "113_rb2101_qt?callbackName=aa&cb=aa&_=1587308954178",
+		SpotPrice:     3427,
+		Aims:          "3400",
+		Describe: `
+			供需强劲, 关联原料铁矿石也很强劲, 进入平台区, 一旦突破, 3400指日可待
+		`,
+		Level:          1,
+		PricePrecision: 0,
+		IsShow:         true,
+	},
 	"m2101": &Variety{
-		Name:          "豆",
+		Name:          "豆粕",
 		OriginDataUrl: "114_m2101_qt?callbackName=aa&cb=aa&_=1585752611719",
-		SpotPrice:     3182.5,
-		Amount:        16,
-		Aims:          3100,
-		Trend:         "2830,多",
-		Describe:      "周线看还未启动, 多",
-		Level:         2,
-		IsShow:        true,
-	},
-	"MA009": &Variety{
-		Name:          "醇",
-		OriginDataUrl: "115_MA009_qt?callbackName=aa&cb=aa&_=1586842655155",
-		SpotPrice:     1760,
-		Amount:        0,
-		Aims:          0,
-		Trend:         "",
-		Describe:      "原油带着化工崩盘了, ..., 砍仓",
-		Level:         1,
-		IsShow:        true,
-	},
-	"c2009": &Variety{
-		Name:          "玉",
-		OriginDataUrl: "114_c2009_qt?callbackName=aa&cb=aa&_=1585757187349",
-		SpotPrice:     1881.43,
-		Amount:        8,
-		Aims:          2100,
-		Trend:         "2030,多",
-		Describe:      "05交割有基差修复需求, 短期看回踩, 长期看趋势不变, 多",
-		Level:         2,
-		IsShow:        false,
-	},
-	"JD2009": &Variety{
-		Name:          "蛋",
-		OriginDataUrl: "114_jd2009_qt?callbackName=aa&cb=aa&_=1586162496980",
-		SpotPrice:     3070,
-		Amount:        0,
-		Aims:          0,
-		Trend:         "4340,空",
-		Describe:      "金叉, 但是下影线两根, 预期需求不足, 高空",
-		Level:         3,
-		IsShow:        false,
+		SpotPrice:     3167.5,
+		Aims:          "2720",
+		Describe: `
+			受巴西大豆, 美大豆到港量影响, 美大豆价格不断近期新低
+			进口国外猪肉打压国内猪肉价格影响
+			短期豆粕低位横盘，甚至会在破新低, 目标01合约, 2720
+		`,
+		Level:          3,
+		PricePrecision: 0,
+		IsShow:         true,
 	},
 }

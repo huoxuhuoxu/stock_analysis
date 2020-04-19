@@ -30,6 +30,23 @@ func main() {
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, syscall.SIGINT, syscall.SIGTERM)
 
+	// 说明输出
+	if mode == 99 {
+		for _, variety := range varietys {
+			if variety.IsShow {
+				arr := strings.Split(strings.TrimSpace(variety.Describe), "\n")
+				for i, v := range arr {
+					arr[i] = strings.TrimSpace(v)
+				}
+
+				fmt.Println(variety.Name)
+				fmt.Println(strings.Join(arr, "\n") + "\n")
+			}
+		}
+		return
+	}
+
+	// 价格监控
 	for k, variety := range varietys {
 		if variety.IsShow && variety.Level <= mode {
 			go getData(k, ORIGIN_URL+variety.OriginDataUrl)
@@ -63,11 +80,9 @@ func show() {
 			group = ks
 		}
 		keys = append(keys, group...)
-		keys = append(keys, "")
 	}
 
 	// 1s刷新输出
-	length := len(keys)
 	t := time.Tick(time.Second * 1)
 	for {
 		select {
@@ -77,21 +92,12 @@ func show() {
 			cmd.Run()
 
 			// 代码, 现价, 现期基差, 短期目标, 趋势判断
-			// fmt.Printf("name, price, value, spot, trend \n")
-			for i, k := range keys {
-				if k == "" {
-					if i+1 != length {
-						fmt.Println("------------")
-					}
-					continue
-				}
+			for _, k := range keys {
 				if v, ok := varietys[k]; ok {
-					// basis := 0.0 // 基差
-					// if v.SpotPrice != 0 {
-					// 	basis = v.SpotPrice - v.Price
-					// }
-					fmt.Printf("%s %.0f\n", v.Name, v.Price)
+					pp := fmt.Sprintf("%%.%df", v.PricePrecision)
+					fmt.Printf("%s "+pp+" %s\n", k, v.Price, v.Aims)
 				}
+				fmt.Println("------------")
 			}
 		case contract := <-contractChan:
 			if v, ok := varietys[contract.code]; ok {
