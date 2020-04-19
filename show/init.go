@@ -67,11 +67,11 @@ var varietys = map[string]*Variety{
 		Name:          "黄金",
 		OriginDataUrl: "113_au2012_qt?callbackName=aa&cb=aa&_=1587309117276",
 		SpotPrice:     0,
-		Aims:          "0",
+		Aims:          "360~400",
 		Describe: `
 			暂时没有看法, 但是看技术面进入平台, 遇阻, 下跌/回踩 是大概率事件
 		`,
-		Level:          2,
+		Level:          3,
 		PricePrecision: 2,
 		IsShow:         true,
 	},
@@ -97,7 +97,7 @@ var varietys = map[string]*Variety{
 			进口国外猪肉打压国内猪肉价格影响
 			短期豆粕低位横盘，甚至会在破新低, 目标01合约, 2720
 		`,
-		Level:          3,
+		Level:          2,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
