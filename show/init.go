@@ -41,7 +41,6 @@ type Variety struct {
 	PricePrecision uint8   // 价格精度
 	Level          int     // 优先级, 1: 优先事项, 2: 逐步进行 3: 可试可不试, 4: 观察, 等待, 有极好的机会可试
 	IsShow         bool    // 是否获取及输出
-	// 还需要关联标的物价格, 比如 美原油/铁矿石/美豆/美黄金 ..., 之后加一个字段, 带上关联合约的信息, 辅助输出
 }
 
 // 请记住, 期货是给远期现货定价的, 而不是用现货现在的价格给期货定价, 谨记
@@ -63,34 +62,37 @@ var varietys = map[string]*Variety{
 		PricePrecision: 1,
 		IsShow:         true,
 	},
-	"au2012": &Variety{
-		Name:          "黄金",
-		OriginDataUrl: "113_au2012_qt?callbackName=aa&cb=aa&_=1587309117276",
-		SpotPrice:     0,
-		Aims:          "360~400",
-		Describe: `
-			暂时没有看法, 但是看技术面进入平台, 遇阻, 下跌/回踩 是大概率事件
-		`,
-		Level:          3,
-		PricePrecision: 2,
-		IsShow:         true,
-	},
 	"rb2101": &Variety{
 		Name:          "螺纹",
 		OriginDataUrl: "113_rb2101_qt?callbackName=aa&cb=aa&_=1587308954178",
-		SpotPrice:     3427,
+		SpotPrice:     3431,
 		Aims:          "3400",
 		Describe: `
 			供需强劲, 关联原料铁矿石也很强劲, 进入平台区, 一旦突破, 3400指日可待
+			反之, 3100也很容易回踩, 3250为中线, 上下各150点宽幅震荡
 		`,
 		Level:          1,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
+	"i2009": &Variety{
+		Name:          "铁矿石",
+		OriginDataUrl: "114_i2009_qt?callbackName=aa&cb=aa&_=1587396948222",
+		SpotPrice:     670,
+		Aims:          "620",
+		Describe: `
+			减产, 但是四五月份到港量高压制价格继续上行
+			技术面, 昂扬向上, ... 
+			暂不做单边观点
+		`,
+		Level:          3,
+		PricePrecision: 1,
+		IsShow:         true,
+	},
 	"m2101": &Variety{
 		Name:          "豆粕",
 		OriginDataUrl: "114_m2101_qt?callbackName=aa&cb=aa&_=1585752611719",
-		SpotPrice:     3167.5,
+		SpotPrice:     3160,
 		Aims:          "2720",
 		Describe: `
 			受巴西大豆, 美大豆到港量影响, 美大豆价格不断近期新低

@@ -95,7 +95,7 @@ func show() {
 			for _, k := range keys {
 				if v, ok := varietys[k]; ok {
 					pp := fmt.Sprintf("%%.%df", v.PricePrecision)
-					fmt.Printf("%s "+pp+" %s\n", k, v.Price, v.Aims)
+					fmt.Printf("%s "+pp+" "+pp+" %s\n", k, v.Price, v.Value, v.Aims)
 				}
 				fmt.Println("------------")
 			}
