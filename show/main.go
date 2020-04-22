@@ -108,9 +108,9 @@ func show() {
 	}
 }
 
-// 2s更新一次数据
+// 3s更新一次数据
 func getData(k, dataUrl string) {
-	t := time.Tick(time.Second * 2)
+	t := time.Tick(time.Second * 3)
 	client := &http.Client{}
 
 	for {
