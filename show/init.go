@@ -71,7 +71,7 @@ var varietys = map[string]*Variety{
 			供需强劲, 关联原料铁矿石也很强劲, 进入平台区, 一旦突破, 3400指日可待
 			反之, 3100也很容易回踩, 3250为中线, 上下各150点宽幅震荡
 		`,
-		Level:          1,
+		Level:          2,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
