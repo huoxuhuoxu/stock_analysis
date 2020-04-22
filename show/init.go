@@ -149,7 +149,7 @@ var varietys = map[string]*Variety{
 		`,
 		Level:          3,
 		PricePrecision: 0,
-		IsShow:         false,
+		IsShow:         true,
 	},
 	"AP2010": &Variety{
 		Name:          "苹果",
