@@ -139,4 +139,28 @@ var varietys = map[string]*Variety{
 		PricePrecision: 0,
 		IsShow:         true,
 	},
+	"pg2011": &Variety{
+		Name:          "天然气",
+		OriginDataUrl: "114_pg2011_qt?callbackName=aa&cb=aa&_=1587535774591",
+		SpotPrice:     0,
+		Aims:          "0",
+		Describe: `
+			
+		`,
+		Level:          3,
+		PricePrecision: 0,
+		IsShow:         true,
+	},
+	"AP2010": &Variety{
+		Name:          "苹果",
+		OriginDataUrl: "115_AP010_qt?callbackName=aa&cb=aa&_=1587535832311",
+		SpotPrice:     0,
+		Aims:          "0",
+		Describe: `
+			
+		`,
+		Level:          3,
+		PricePrecision: 0,
+		IsShow:         true,
+	},
 }
