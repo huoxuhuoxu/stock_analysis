@@ -127,4 +127,16 @@ var varietys = map[string]*Variety{
 		PricePrecision: 0,
 		IsShow:         true,
 	},
+	"AG2012": &Variety{
+		Name:          "白银",
+		OriginDataUrl: "113_ag2012_qt?callbackName=aa&cb=aa&_=1587533190507",
+		SpotPrice:     0,
+		Aims:          "0",
+		Describe: `
+			
+		`,
+		Level:          3,
+		PricePrecision: 0,
+		IsShow:         true,
+	},
 }
