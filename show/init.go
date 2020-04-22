@@ -85,7 +85,7 @@ var varietys = map[string]*Variety{
 			技术面, 昂扬向上, ... 
 			暂不做单边观点
 		`,
-		Level:          3,
+		Level:          4,
 		PricePrecision: 1,
 		IsShow:         true,
 	},
@@ -100,6 +100,30 @@ var varietys = map[string]*Variety{
 			短期豆粕低位横盘，甚至会在破新低, 目标01合约, 2720
 		`,
 		Level:          2,
+		PricePrecision: 0,
+		IsShow:         true,
+	},
+	"BU2012": &Variety{
+		Name:          "沥青",
+		OriginDataUrl: "113_bu2012_qt?callbackName=aa&cb=aa&_=1587532980754",
+		SpotPrice:     2250,
+		Aims:          "0",
+		Describe: `
+			
+		`,
+		Level:          3,
+		PricePrecision: 0,
+		IsShow:         true,
+	},
+	"fu2101": &Variety{
+		Name:          "燃油",
+		OriginDataUrl: "113_fu2101_qt?callbackName=aa&cb=aa&_=1587533000837",
+		SpotPrice:     0,
+		Aims:          "0",
+		Describe: `
+			
+		`,
+		Level:          3,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
