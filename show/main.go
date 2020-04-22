@@ -30,6 +30,12 @@ func main() {
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, syscall.SIGINT, syscall.SIGTERM)
 
+	// 今日计划输出
+	if mode == 0 {
+		fmt.Println(dailyOperation)
+		return
+	}
+
 	// 说明输出
 	if mode == 99 {
 		for _, variety := range varietys {
@@ -80,6 +86,7 @@ func show() {
 			group = ks
 		}
 		keys = append(keys, group...)
+		keys = append(keys, "")
 	}
 
 	// 1s刷新输出
@@ -97,7 +104,9 @@ func show() {
 					pp := fmt.Sprintf("%%.%df", v.PricePrecision)
 					fmt.Printf("%s "+pp+" "+pp+" %s\n", k, v.Price, v.Value, v.Aims)
 				}
-				fmt.Println("------------")
+				if k == "" {
+					fmt.Println("------------")
+				}
 			}
 		case contract := <-contractChan:
 			if v, ok := varietys[contract.code]; ok {

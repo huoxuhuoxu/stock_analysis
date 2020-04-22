@@ -43,7 +43,16 @@ type Variety struct {
 	IsShow         bool    // 是否获取及输出
 }
 
-// 请记住, 期货是给远期现货定价的, 而不是用现货现在的价格给期货定价, 谨记
+/*
+	请记住:
+		1. 期货是给远期现货定价的, 而不是用现货现在的价格给期货定价, 谨记
+		2. 做短线就要有做短线的操守, 不持仓过夜, 日内 平仓/锁仓
+		3. 做长线就要有承担压力的心理准备
+		4. 被套了也不要恐慌, 短期的大起大落, 基于均值回归, 最终都会回到均线附近, 市场会给出解套的机会
+		5. 左侧交易 承压与收益成正比, 右侧交易 顺势而行
+		6. 长远来看任何一个商品最终都会回归一个被长时间考验的相对内在价值的合理价格
+		7. 相信自己的判断, 坚信自己的决定, 坚定不移的执行定下的策略, 贯彻到底, 始终如一
+*/
 var varietys = map[string]*Variety{
 	"sc2009": &Variety{
 		Name:          "原油",
@@ -72,7 +81,7 @@ var varietys = map[string]*Variety{
 			关联原料铁矿石也很强劲, 进入平台区, 一旦突破, 3400指日可待
 			反之, 3100也很容易回踩, 3250为中线, 上下各150点宽幅震荡
 		`,
-		Level:          2,
+		Level:          1,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -86,7 +95,7 @@ var varietys = map[string]*Variety{
 			可以与螺纹联做, 日内 多铁矿空螺纹
 			目前 铁矿 强于 螺纹, 1:2 或 2:3 建仓, 不跨日持仓
 		`,
-		Level:          2,
+		Level:          3,
 		PricePrecision: 1,
 		IsShow:         true,
 	},
@@ -102,7 +111,7 @@ var varietys = map[string]*Variety{
 			近期出现低点2750+, 开始反转的样子
 			五月合约交割价, 预估3000以上, 目前200+基点, 或有补基差行情
 		`,
-		Level:          3,
+		Level:          2,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -118,7 +127,7 @@ var varietys = map[string]*Variety{
 			多沥青空燃油, 只做日内, 预期一个交易日有一到两次机会产生20～30个点的基差
 			不跨日持仓, 日内平仓或者锁定仓位, 不赚跨日的钱, 防止大的风险, 只赚日内价差
 		`,
-		Level:          1,
+		Level:          2,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -132,7 +141,7 @@ var varietys = map[string]*Variety{
 			不做单边观点, 与沥青联合做
 			逻辑, 同为原油相关性极高的衍生品 沥青的副逻辑基建 强于 燃油的副逻辑航运
 		`,
-		Level:          1,
+		Level:          2,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -164,16 +173,16 @@ var varietys = map[string]*Variety{
 		PricePrecision: 2,
 		IsShow:         true,
 	},
-	"jd2010": &Variety{
+	"jd2009": &Variety{
 		Name:          "鸡蛋",
-		OriginDataUrl: "114_jd2010_qt?callbackName=aa&cb=aa&_=1587566503238",
+		OriginDataUrl: "114_jd2009_qt?callbackName=aa&cb=aa&_=1587566503238",
 		SpotPrice:     3142,
-		Aims:          "",
+		Aims:          "4100~4300",
 		Describe: `
 			看震荡行情
 			4100以下可多, 4300以上可空
 		`,
-		Level:          4,
+		Level:          3,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -193,3 +202,14 @@ var varietys = map[string]*Variety{
 		IsShow:         true,
 	},
 }
+
+/*
+	请严格执行
+*/
+var dailyOperation = `
+	1. 在合适的价格增仓 燃油、沥青, 依旧按照 空燃油多沥青 做差价套利的逻辑, 视实际情况增仓到单边 4～5 手
+	2. 螺纹解除2手空单, 共计持4手多单, 看涨, 收盘前在相对合适的位置, 再次锁仓2手多单
+	3. 继续观察 豆粕, 鸡蛋 走势, 豆一 4800 可短空
+	4. 暂时不做 螺纹/铁矿 反套, 留保证金给 燃油/沥青 反套, 扩大仓位, 让利润奔跑
+	5. 如果盘面 黑色 强势的惊人, 可日内短多 铁矿石, 收盘前平仓
+`
