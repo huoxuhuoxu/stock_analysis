@@ -54,6 +54,17 @@ type Variety struct {
 		7. 相信自己的判断, 坚信自己的决定, 坚定不移的执行定下的策略, 贯彻到底, 始终如一
 */
 var varietys = map[string]*Variety{
+	"sc2006": &Variety{
+		Name:          "原油",
+		OriginDataUrl: "142_sc2006_qt?callbackName=aa&cb=aa&_=1587309656220",
+		SpotPrice:     0,
+		Aims:          "",
+		Describe: `
+		`,
+		Level:          1,
+		PricePrecision: 1,
+		IsShow:         true,
+	},
 	"sc2009": &Variety{
 		Name:          "原油",
 		OriginDataUrl: "142_sc2009_qt?callbackName=aa&cb=aa&_=1587309656220",
@@ -71,6 +82,17 @@ var varietys = map[string]*Variety{
 		PricePrecision: 1,
 		IsShow:         true,
 	},
+	"sc2012": &Variety{
+		Name:          "原油",
+		OriginDataUrl: "142_sc2012_qt?callbackName=aa&cb=aa&_=1587309656220",
+		SpotPrice:     0,
+		Aims:          "",
+		Describe: `
+		`,
+		Level:          1,
+		PricePrecision: 1,
+		IsShow:         true,
+	},
 	"rb2101": &Variety{
 		Name:          "螺纹",
 		OriginDataUrl: "113_rb2101_qt?callbackName=aa&cb=aa&_=1587308954178",
@@ -81,7 +103,7 @@ var varietys = map[string]*Variety{
 			关联原料铁矿石也很强劲, 进入平台区, 一旦突破, 3400指日可待
 			反之, 3100也很容易回踩, 3250为中线, 上下各150点宽幅震荡
 		`,
-		Level:          1,
+		Level:          2,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
