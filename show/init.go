@@ -61,7 +61,7 @@ var varietys = map[string]*Variety{
 		Aims:          "",
 		Describe: `
 		`,
-		Level:          1,
+		Level:          4,
 		PricePrecision: 1,
 		IsShow:         true,
 	},
@@ -69,7 +69,7 @@ var varietys = map[string]*Variety{
 		Name:          "原油",
 		OriginDataUrl: "142_sc2009_qt?callbackName=aa&cb=aa&_=1587309656220",
 		SpotPrice:     0,
-		Aims:          "250~270",
+		Aims:          "",
 		Describe: `
 			假设五月原油价格是其实际供需进而产生的, 
 			那么后续月份的现在价格需要加上时间周期的仓储费用, 由买家买单,
@@ -89,7 +89,7 @@ var varietys = map[string]*Variety{
 		Aims:          "",
 		Describe: `
 		`,
-		Level:          1,
+		Level:          4,
 		PricePrecision: 1,
 		IsShow:         true,
 	},
@@ -97,13 +97,13 @@ var varietys = map[string]*Variety{
 		Name:          "螺纹",
 		OriginDataUrl: "113_rb2101_qt?callbackName=aa&cb=aa&_=1587308954178",
 		SpotPrice:     3405.5,
-		Aims:          "3400",
+		Aims:          "",
 		Describe: `
 			供需强劲, 但价格上涨受制于高库存
 			关联原料铁矿石也很强劲, 进入平台区, 一旦突破, 3400指日可待
 			反之, 3100也很容易回踩, 3250为中线, 上下各150点宽幅震荡
 		`,
-		Level:          2,
+		Level:          3,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -111,7 +111,7 @@ var varietys = map[string]*Variety{
 		Name:          "铁矿石",
 		OriginDataUrl: "114_i2009_qt?callbackName=aa&cb=aa&_=1587396948222",
 		SpotPrice:     663.89,
-		Aims:          "640",
+		Aims:          "",
 		Describe: `
 			减产, 但是四五月份到港量高压制价格继续上行
 			可以与螺纹联做, 日内 多铁矿空螺纹
@@ -133,7 +133,7 @@ var varietys = map[string]*Variety{
 			近期出现低点2750+, 开始反转的样子
 			五月合约交割价, 预估3000以上, 目前200+基点, 或有补基差行情
 		`,
-		Level:          2,
+		Level:          4,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -171,12 +171,12 @@ var varietys = map[string]*Variety{
 		Name:          "白银",
 		OriginDataUrl: "113_ag2012_qt?callbackName=aa&cb=aa&_=1587533190507",
 		SpotPrice:     0,
-		Aims:          "3380",
+		Aims:          "",
 		Describe: `
 			技术面受压制, 3650 可空, 目标3380
 			但受黄金影响, 容易出黑天鹅, 观察为主, 不动
 		`,
-		Level:          4,
+		Level:          2,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -191,7 +191,7 @@ var varietys = map[string]*Variety{
 			风险较大, 伦敦黄金可能存在逼仓的可能, 导致外盘黄金突破新高
 			进而引发内盘黄金突破平台区, 观察为主, 不动
 		`,
-		Level:          4,
+		Level:          1,
 		PricePrecision: 2,
 		IsShow:         true,
 	},
@@ -204,7 +204,7 @@ var varietys = map[string]*Variety{
 			看震荡行情
 			4100以下可多, 4300以上可空
 		`,
-		Level:          3,
+		Level:          4,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -242,4 +242,14 @@ var dailyOperation = `
 		视原油情况而定, 涨-正套, 跌-反套
 		并且就观察下来, 跨日意义不大, 除非开盘锁仓,
 		开盘时会有20～30利差, 盘中修复至5～10, 基于原油涨的基础
+*/
+
+/*
+	找时间盯一下 豆油/菜油/棕榈油
+	看有没有机会在里面做反套
+	反套不锁仓, 只平仓, 尽量不要跨夜,
+	其实逻辑错的话跨夜, 第二天开盘 风险对冲 也还是平的
+
+	每次出手的目标 200~400利润/手, 不要贪, 贪了会反转, 反而被套里面, 不值得
+	观察每天走势, 防止强弱反转引发基差错位
 */
