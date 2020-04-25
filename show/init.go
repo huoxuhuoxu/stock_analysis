@@ -57,6 +57,26 @@ type Variety struct {
 		7. 相信自己的判断, 坚信自己的决定, 坚定不移的执行定下的策略, 贯彻到底, 始终如一
 */
 var varietys = map[string]*Variety{
+	"cl00y": &Variety{
+		Name:           "美油06",
+		OriginDataUrl:  "102_CL00Y_qt?callbackName=aa&cb=aa&_=1587646825954",
+		SpotPrice:      0,
+		Aims:           "",
+		Describe:       ``,
+		Level:          1,
+		PricePrecision: 2,
+		IsShow:         true,
+	},
+	"cl20u": &Variety{
+		Name:           "美油09",
+		OriginDataUrl:  "102_CL20U_qt?callbackName=aa&cb=aa&_=1587646921066",
+		SpotPrice:      0,
+		Aims:           "",
+		Describe:       ``,
+		Level:          1,
+		PricePrecision: 2,
+		IsShow:         true,
+	},
 	"sc2006": &Variety{
 		Name:          "原油",
 		OriginDataUrl: "142_sc2006_qt?callbackName=aa&cb=aa&_=1587309656220",
@@ -233,11 +253,7 @@ var varietys = map[string]*Variety{
 	请严格执行
 */
 var dailyOperation = `
-	外盘美油 近月反弹多, 沅月反弹少
-	国内原油 近月反弹少, 沅月反弹多, 主要原因在于:
-		1. 美油近月跌多, 远月跌少, 在基本面可能改善的情况下, 近月反弹空间更大
-		2. 内盘远近合约跌势相近, 并且在对未来有较好预期的情况下, 远月反弹预期高于近月
-		3. 基本美油这波价格战中, 远月价格中枢依旧维持在 30～35 之间
+	
 `
 
 /*
