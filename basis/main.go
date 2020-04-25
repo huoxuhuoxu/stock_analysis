@@ -49,7 +49,7 @@ func main() {
 	<-interrupt
 }
 
-// 输出显示
+// 输出显示 ----- 需要增加独立输出 原油品种 的功能
 func show() {
 	// 1s刷新输出
 	t := time.Tick(time.Second * 1)
@@ -73,7 +73,7 @@ func show() {
 				// 每一组的持仓比
 				matching := fmt.Sprintf("%d:%d", curA.Amount, curB.Amount)
 				// 每一组的平仓划点需要付出的价格
-				expenditure := curA.Dash*curA.DashCoefficient + curB.Dash*curB.DashCoefficient
+				expenditure := curA.Dash*curA.DashCoefficient*float64(curA.Amount) + curB.Dash*curB.DashCoefficient*float64(curB.Amount)
 
 				// 有效精度
 				ppA := fmt.Sprintf("%%.%df", curA.PricePrecision)
