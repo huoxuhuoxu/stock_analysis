@@ -208,14 +208,14 @@ var varietys = map[string]*Variety{
 		Name:          "沪金",
 		OriginDataUrl: "113_au2012_qt?callbackName=aa&cb=aa&_=1587566439644",
 		SpotPrice:     0,
-		Aims:          "360~390",
+		Aims:          "",
 		Describe: `
 			围绕 360 上下 30 个点震荡, 跟着外盘跑
 			技术面上看在 380/390 受压制, 但
 			风险较大, 伦敦黄金可能存在逼仓的可能, 导致外盘黄金突破新高
 			进而引发内盘黄金突破平台区, 观察为主, 不动
 		`,
-		Level:          1,
+		Level:          2,
 		PricePrecision: 2,
 		IsShow:         true,
 	},
