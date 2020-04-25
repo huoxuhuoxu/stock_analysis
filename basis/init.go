@@ -49,13 +49,14 @@ type Variety struct {
 }
 
 type Group struct {
-	Name              string    // 组合名称
-	Combination       [2]string // 包含合约, 持仓方向(0: 多, 1: 空)
-	Limit             float64   // 基差临界点数
-	Profit            float64   // 利润点数
-	MarginConsumption string    // 组合需要消耗保证金
-	Level             int       // 优先级
-	Describe          string    // 组合逻辑说明
+	Name        string    // 组合名称
+	Combination [2]string // 包含合约, 持仓方向(0: 多, 1: 空)
+	// 基差临界点数, 预计中可能会存在超跌值, 以此值为起点开始套利, 最关键的一个值
+	Limit             float64
+	Profit            float64 // 利润点数
+	MarginConsumption string  // 组合需要消耗保证金
+	Level             int     // 优先级
+	Describe          string  // 组合逻辑说明
 }
 
 // 反套组
