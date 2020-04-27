@@ -118,7 +118,7 @@ var varietys = map[string]*Variety{
 			关联原料铁矿石也很强劲, 进入平台区, 一旦突破, 3400指日可待
 			反之, 3100也很容易回踩, 3250为中线, 上下各150点宽幅震荡
 		`,
-		Level:          3,
+		Level:          9,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -132,7 +132,7 @@ var varietys = map[string]*Variety{
 			可以与螺纹联做, 日内 多铁矿空螺纹
 			目前 铁矿 强于 螺纹, 1:2 或 2:3 建仓, 不跨日持仓
 		`,
-		Level:          4,
+		Level:          9,
 		PricePrecision: 1,
 		IsShow:         true,
 	},
@@ -148,7 +148,7 @@ var varietys = map[string]*Variety{
 			近期出现低点2750+, 开始反转的样子
 			五月合约交割价, 预估3000以上, 目前200+基点, 或有补基差行情
 		`,
-		Level:          4,
+		Level:          9,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -219,7 +219,7 @@ var varietys = map[string]*Variety{
 			看震荡行情
 			4100以下可多, 4300以上可空
 		`,
-		Level:          3,
+		Level:          9,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -234,7 +234,7 @@ var varietys = map[string]*Variety{
 			不做, 纯粹就是验证想法, 为我近期最大的亏损, 把它盯完
 			其实吧, 很可能五月多头移仓九月, 继续逼仓
 		`,
-		Level:          4,
+		Level:          9,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
