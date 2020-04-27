@@ -55,7 +55,7 @@ type Group struct {
 	Limit             float64
 	Profit            float64 // 利润点数
 	MarginConsumption string  // 组合需要消耗保证金
-	Level             int     // 优先级
+	Level             int     // 优先级, 99: 待验证待的逻辑, 100: 等待
 	Describe          string  // 组合逻辑说明
 }
 
@@ -78,6 +78,51 @@ var groups = []Group{
 			日内会产生 20～40 点的套利机会
 		`,
 	},
+	Group{
+		Name:              "多黄金/空白银",
+		Combination:       [2]string{"au2012", "ag2012"},
+		Limit:             30,
+		MarginConsumption: "50",
+		Level:             99,
+		Profit:            150,
+		Describe:          ``,
+	},
+	Group{
+		Name:              "多铁矿/空螺纹",
+		Combination:       [2]string{"i2009", "rb2101"},
+		Limit:             10,
+		MarginConsumption: "20",
+		Level:             100,
+		Profit:            80,
+		Describe:          ``,
+	},
+	Group{
+		Name:              "多橡胶/空棉花",
+		Combination:       [2]string{"ru2009", "cf2009"},
+		Limit:             30,
+		MarginConsumption: "20",
+		Level:             100,
+		Profit:            120,
+		Describe:          ``,
+	},
+	Group{
+		Name:              "多豆油/空棕榈",
+		Combination:       [2]string{"y2009", "p2009"},
+		Limit:             10,
+		MarginConsumption: "10",
+		Level:             100,
+		Profit:            40,
+		Describe:          ``,
+	},
+	Group{
+		Name:              "多菜粕/空豆粕",
+		Combination:       [2]string{"rm009", "m2101"},
+		Limit:             3,
+		MarginConsumption: "4",
+		Level:             100,
+		Profit:            20,
+		Describe:          ``,
+	},
 }
 
 // 合约集合
@@ -97,5 +142,85 @@ var varietys = map[string]*Variety{
 		Amount:          1,
 		Dash:            1,
 		DashCoefficient: 10,
+	},
+	"au2012": &Variety{
+		Name:            "沪金",
+		OriginDataUrl:   "113_au2012_qt?callbackName=aa&cb=aa&_=1587566439644",
+		PricePrecision:  2,
+		Amount:          1,
+		Dash:            0.02,
+		DashCoefficient: 1000,
+	},
+	"ag2012": &Variety{
+		Name:            "白银",
+		OriginDataUrl:   "113_ag2012_qt?callbackName=aa&cb=aa&_=1587533190507",
+		PricePrecision:  0,
+		Amount:          3,
+		Dash:            1,
+		DashCoefficient: 15,
+	},
+	"ru2009": &Variety{
+		Name:            "橡胶",
+		OriginDataUrl:   "113_ru2009_qt?callbackName=aa&cb=aa&_=1587831212788",
+		PricePrecision:  0,
+		Amount:          1,
+		Dash:            5,
+		DashCoefficient: 10,
+	},
+	"cf2009": &Variety{
+		Name:            "棉花",
+		OriginDataUrl:   "115_CF009_qt?callbackName=aa&cb=aa&_=1587831268588",
+		PricePrecision:  0,
+		Amount:          2,
+		Dash:            5,
+		DashCoefficient: 5,
+	},
+	"y2009": &Variety{
+		Name:            "豆油",
+		OriginDataUrl:   "114_y2009_qt?callbackName=aa&cb=aa&_=1587831586766",
+		PricePrecision:  0,
+		Amount:          1,
+		Dash:            2,
+		DashCoefficient: 10,
+	},
+	"p2009": &Variety{
+		Name:            "棕榈油",
+		OriginDataUrl:   "114_p2009_qt?callbackName=aa&cb=aa&_=1587831659449",
+		PricePrecision:  0,
+		Amount:          1,
+		Dash:            2,
+		DashCoefficient: 10,
+	},
+	"rm009": &Variety{
+		Name:            "菜粕",
+		OriginDataUrl:   "115_RM009_qt?callbackName=aa&cb=aa&_=1587831952152",
+		PricePrecision:  0,
+		Amount:          1,
+		Dash:            1,
+		DashCoefficient: 10,
+	},
+	"m2101": &Variety{
+		Name:            "豆粕",
+		OriginDataUrl:   "114_m2101_qt?callbackName=aa&cb=aa&_=1585752611719",
+		PricePrecision:  0,
+		Amount:          1,
+		Dash:            1,
+		DashCoefficient: 10,
+	},
+	"rb2101": &Variety{
+		Name:            "螺纹",
+		OriginDataUrl:   "113_rb2101_qt?callbackName=aa&cb=aa&_=1587308954178",
+		PricePrecision:  0,
+		Amount:          3,
+		Dash:            1,
+		DashCoefficient: 10,
+	},
+	"i2009": &Variety{
+		Name:            "铁矿石",
+		OriginDataUrl:   "114_i2009_qt?callbackName=aa&cb=aa&_=1587396948222",
+		PricePrecision:  1,
+		Amount:          2,
+		Dash:            0.5,
+		DashCoefficient: 100,
 	},
 }
