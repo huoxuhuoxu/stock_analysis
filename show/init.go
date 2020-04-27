@@ -75,7 +75,7 @@ var varietys = map[string]*Variety{
 		Aims:          "",
 		Describe: `
 		`,
-		Level:          4,
+		Level:          9,
 		PricePrecision: 1,
 		IsShow:         true,
 	},
@@ -104,7 +104,7 @@ var varietys = map[string]*Variety{
 		Aims:          "",
 		Describe: `
 		`,
-		Level:          4,
+		Level:          9,
 		PricePrecision: 1,
 		IsShow:         true,
 	},
@@ -132,7 +132,7 @@ var varietys = map[string]*Variety{
 			可以与螺纹联做, 日内 多铁矿空螺纹
 			目前 铁矿 强于 螺纹, 1:2 或 2:3 建仓, 不跨日持仓
 		`,
-		Level:          3,
+		Level:          4,
 		PricePrecision: 1,
 		IsShow:         true,
 	},
@@ -148,7 +148,7 @@ var varietys = map[string]*Variety{
 			近期出现低点2750+, 开始反转的样子
 			五月合约交割价, 预估3000以上, 目前200+基点, 或有补基差行情
 		`,
-		Level:          4,
+		Level:          6,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -214,12 +214,12 @@ var varietys = map[string]*Variety{
 		Name:          "鸡蛋",
 		OriginDataUrl: "114_jd2009_qt?callbackName=aa&cb=aa&_=1587566503238",
 		SpotPrice:     3142,
-		Aims:          "4100~4300",
+		Aims:          "",
 		Describe: `
 			看震荡行情
 			4100以下可多, 4300以上可空
 		`,
-		Level:          4,
+		Level:          3,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -227,7 +227,7 @@ var varietys = map[string]*Variety{
 		Name:          "豆一",
 		OriginDataUrl: "114_a2009_qt?callbackName=aa&cb=aa&_=1587566549527",
 		SpotPrice:     4666.67,
-		Aims:          "4800~5000",
+		Aims:          "",
 		Describe: `
 			妖的一逼, 现货价格强劲, 没有进行扩产, 交易所交割标准上升
 			如上原因构建一个强大的豆一多头行情, 并且大波动大回踩, 但上升趋势不改
