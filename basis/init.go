@@ -76,15 +76,6 @@ var groups = []Group{
 			日内会产生 20～40 点的套利机会
 		`,
 	},
-	Group{
-		Name:              "多菜粕/空豆粕",
-		Combination:       [2]string{"rm009", "m2101"},
-		Limit:             3,
-		MarginConsumption: "4",
-		Level:             2,
-		Profit:            20,
-		Describe:          ``,
-	},
 }
 
 // 合约集合
@@ -100,22 +91,6 @@ var varietys = map[string]*Variety{
 	"fu2101": &Variety{
 		Name:            "燃油",
 		OriginDataUrl:   "113_fu2101_qt?callbackName=aa&cb=aa&_=1587533000837",
-		PricePrecision:  0,
-		Amount:          1,
-		Dash:            1,
-		DashCoefficient: 10,
-	},
-	"rm009": &Variety{
-		Name:            "菜粕",
-		OriginDataUrl:   "115_RM009_qt?callbackName=aa&cb=aa&_=1587831952152",
-		PricePrecision:  0,
-		Amount:          1,
-		Dash:            1,
-		DashCoefficient: 10,
-	},
-	"m2101": &Variety{
-		Name:            "豆粕",
-		OriginDataUrl:   "114_m2101_qt?callbackName=aa&cb=aa&_=1585752611719",
 		PricePrecision:  0,
 		Amount:          1,
 		Dash:            1,

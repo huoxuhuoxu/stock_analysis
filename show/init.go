@@ -148,7 +148,7 @@ var varietys = map[string]*Variety{
 			近期出现低点2750+, 开始反转的样子
 			五月合约交割价, 预估3000以上, 目前200+基点, 或有补基差行情
 		`,
-		Level:          6,
+		Level:          4,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
