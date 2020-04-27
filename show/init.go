@@ -191,7 +191,7 @@ var varietys = map[string]*Variety{
 			技术面受压制, 3650 可空, 目标3380
 			但受黄金影响, 容易出黑天鹅, 观察为主, 不动
 		`,
-		Level:          2,
+		Level:          3,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -206,7 +206,7 @@ var varietys = map[string]*Variety{
 			风险较大, 伦敦黄金可能存在逼仓的可能, 导致外盘黄金突破新高
 			进而引发内盘黄金突破平台区, 观察为主, 不动
 		`,
-		Level:          2,
+		Level:          3,
 		PricePrecision: 2,
 		IsShow:         true,
 	},
