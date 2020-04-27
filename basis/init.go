@@ -61,6 +61,7 @@ type Group struct {
 
 // 反套组
 var groups = []Group{
+	// 需要追加基差回归的假设, 在主逻辑影响下
 	Group{
 		Name:              "多沥青/空燃油",
 		Combination:       [2]string{"bu2012", "fu2101"},
