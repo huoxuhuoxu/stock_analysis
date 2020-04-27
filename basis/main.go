@@ -39,6 +39,10 @@ func main() {
 	for _, group := range groups {
 		if group.Level <= mode {
 			for _, k := range group.Combination {
+				if k == "" {
+					continue
+				}
+
 				v := varietys[k]
 				go getData(k, ORIGIN_URL+v.OriginDataUrl)
 			}
@@ -62,6 +66,7 @@ func show() {
 
 			// 输出
 			for _, group := range groups {
+				// 套差与趋势跟随
 				curA := varietys[group.Combination[0]]
 				curB := varietys[group.Combination[1]]
 				if curA.Price == 0 || curB.Price == 0 {

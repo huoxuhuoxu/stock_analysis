@@ -61,9 +61,10 @@ type Group struct {
 
 // 反套组
 var groups = []Group{
-	// 需要追加基差回归的假设, 在主逻辑影响下
-	// 为什么对赌是 多沥青 空燃油 的假设, 为什么不能倒过来, 需要解释
+	// 套差与趋势跟随
 	Group{
+		// 需要追加基差回归的假设, 在主逻辑影响下
+		// 为什么对赌是 多沥青 空燃油 的假设, 为什么不能倒过来, 需要解释
 		Name:              "多沥青/空燃油",
 		Combination:       [2]string{"bu2012", "fu2101"},
 		Limit:             5,
@@ -79,49 +80,50 @@ var groups = []Group{
 		`,
 	},
 	Group{
+		Name:              "多菜粕/空豆粕",
+		Combination:       [2]string{"rm009", "m2101"},
+		Limit:             5,
+		MarginConsumption: "4",
+		Level:             2,
+		Profit:            20,
+		Describe: `
+			反套, 有套利空间, 大约20个点上下
+			菜粕波动大于豆粕, 在排除极端行情的情况下, 两倍的关系
+			盘中建仓可以排除开盘的极端行情, 等待基差出现
+			负基差建仓最好, 菜粕比较妖, 可以拉回来
+			对赌逻辑:
+				1. 菜粕持仓小 更能够将基本面的变化体现在价格上
+				2. 菜粕持仓小 更容易出现超跌或者超买的情况
+				3. 在趋势偏弱, 利用豆粕对冲其大波动下跌时的损失, 赌两者的波动点数, 最终会回归相近的位置
+				4. 在趋势偏强, 菜粕由于持仓小的原因, 更容易导致价格上涨, 从而产生与豆粕的基差点数, 从中套利
+		`,
+	},
+	Group{
 		Name:              "多黄金/空白银",
 		Combination:       [2]string{"au2012", "ag2012"},
 		Limit:             30,
 		MarginConsumption: "50",
-		Level:             99,
+		Level:             3,
 		Profit:            150,
-		Describe:          ``,
+		Describe: `
+			反套逻辑弱, 不能做
+			但是, 白银跟着黄金走, 可以做参考
+			比如 04/27, 黄金盘中下跌, 白银暂时坚挺, 后跟跌
+			可以用于做提前预判
+		`,
 	},
 	Group{
 		Name:              "多铁矿/空螺纹",
 		Combination:       [2]string{"i2009", "rb2101"},
 		Limit:             10,
 		MarginConsumption: "20",
-		Level:             100,
+		Level:             3,
 		Profit:            80,
-		Describe:          ``,
-	},
-	Group{
-		Name:              "多橡胶/空棉花",
-		Combination:       [2]string{"ru2009", "cf2009"},
-		Limit:             30,
-		MarginConsumption: "20",
-		Level:             100,
-		Profit:            120,
-		Describe:          ``,
-	},
-	Group{
-		Name:              "多豆油/空棕榈",
-		Combination:       [2]string{"y2009", "p2009"},
-		Limit:             10,
-		MarginConsumption: "10",
-		Level:             100,
-		Profit:            40,
-		Describe:          ``,
-	},
-	Group{
-		Name:              "多菜粕/空豆粕",
-		Combination:       [2]string{"rm009", "m2101"},
-		Limit:             3,
-		MarginConsumption: "4",
-		Level:             100,
-		Profit:            20,
-		Describe:          ``,
+		Describe: `
+			反套逻辑弱, 不能做, 如果非要做, 需要很强的选择,
+			但是, 这两个品种互相影响, 属于上下游关系, 可以做参考
+			铁矿强, 螺纹也不会太弱, 反之亦然
+		`,
 	},
 }
 
@@ -158,38 +160,6 @@ var varietys = map[string]*Variety{
 		Amount:          3,
 		Dash:            1,
 		DashCoefficient: 15,
-	},
-	"ru2009": &Variety{
-		Name:            "橡胶",
-		OriginDataUrl:   "113_ru2009_qt?callbackName=aa&cb=aa&_=1587831212788",
-		PricePrecision:  0,
-		Amount:          1,
-		Dash:            5,
-		DashCoefficient: 10,
-	},
-	"cf2009": &Variety{
-		Name:            "棉花",
-		OriginDataUrl:   "115_CF009_qt?callbackName=aa&cb=aa&_=1587831268588",
-		PricePrecision:  0,
-		Amount:          2,
-		Dash:            5,
-		DashCoefficient: 5,
-	},
-	"y2009": &Variety{
-		Name:            "豆油",
-		OriginDataUrl:   "114_y2009_qt?callbackName=aa&cb=aa&_=1587831586766",
-		PricePrecision:  0,
-		Amount:          1,
-		Dash:            2,
-		DashCoefficient: 10,
-	},
-	"p2009": &Variety{
-		Name:            "棕榈油",
-		OriginDataUrl:   "114_p2009_qt?callbackName=aa&cb=aa&_=1587831659449",
-		PricePrecision:  0,
-		Amount:          1,
-		Dash:            2,
-		DashCoefficient: 10,
 	},
 	"rm009": &Variety{
 		Name:            "菜粕",
