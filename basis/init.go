@@ -90,7 +90,7 @@ var groups = []Group{
 		Name:              "多黄金/空白银",
 		Combination:       [2]string{"au2012", "ag2012"},
 		Limit:             30,
-		MarginConsumption: "60",
+		MarginConsumption: "50",
 		Level:             999,
 		Profit:            150,
 		Describe: `
@@ -98,38 +98,6 @@ var groups = []Group{
 			但是, 白银跟着黄金走, 可以做参考
 			比如 04/27, 黄金盘中下跌, 白银暂时坚挺, 后跟跌
 			可以用于做提前预判
-		`,
-	},
-	Group{
-		Name:              "多铁矿/空螺纹",
-		Combination:       [2]string{"i2009", "rb2101"},
-		Limit:             10,
-		MarginConsumption: "20",
-		Level:             999,
-		Profit:            80,
-		Describe: `
-			反套逻辑弱, 不能做, 如果非要做, 需要很强的选择,
-			但是, 这两个品种互相影响, 属于上下游关系, 可以做参考
-			铁矿强, 螺纹也不会太弱, 反之亦然
-		`,
-	},
-	Group{
-		Name:              "多菜粕/空豆粕",
-		Combination:       [2]string{"rm009", "m2101"},
-		Limit:             5,
-		MarginConsumption: "4",
-		Level:             999,
-		Profit:            20,
-		Describe: `
-			反套, 有套利空间, 大约20个点上下
-			菜粕波动大于豆粕, 在排除极端行情的情况下, 两倍的关系
-			盘中建仓可以排除开盘的极端行情, 等待基差出现
-			负基差建仓最好, 菜粕比较妖, 可以拉回来
-			对赌逻辑:
-				1. 菜粕持仓小 更能够将基本面的变化体现在价格上
-				2. 菜粕持仓小 更容易出现超跌或者超买的情况
-				3. 在趋势偏弱, 利用豆粕对冲其大波动下跌时的损失, 赌两者的波动点数, 最终会回归相近的位置
-				4. 在趋势偏强, 菜粕由于持仓小的原因, 更容易导致价格上涨, 从而产生与豆粕的基差点数, 从中套利
 		`,
 	},
 }
@@ -164,40 +132,8 @@ var varietys = map[string]*Variety{
 		Name:            "白银",
 		OriginDataUrl:   "113_ag2012_qt?callbackName=aa&cb=aa&_=1587533190507",
 		PricePrecision:  0,
-		Amount:          5,
-		Dash:            1,
-		DashCoefficient: 15,
-	},
-	"rm009": &Variety{
-		Name:            "菜粕",
-		OriginDataUrl:   "115_RM009_qt?callbackName=aa&cb=aa&_=1587831952152",
-		PricePrecision:  0,
-		Amount:          1,
-		Dash:            1,
-		DashCoefficient: 10,
-	},
-	"m2101": &Variety{
-		Name:            "豆粕",
-		OriginDataUrl:   "114_m2101_qt?callbackName=aa&cb=aa&_=1585752611719",
-		PricePrecision:  0,
-		Amount:          1,
-		Dash:            1,
-		DashCoefficient: 10,
-	},
-	"rb2101": &Variety{
-		Name:            "螺纹",
-		OriginDataUrl:   "113_rb2101_qt?callbackName=aa&cb=aa&_=1587308954178",
-		PricePrecision:  0,
 		Amount:          3,
 		Dash:            1,
-		DashCoefficient: 10,
-	},
-	"i2009": &Variety{
-		Name:            "铁矿石",
-		OriginDataUrl:   "114_i2009_qt?callbackName=aa&cb=aa&_=1587396948222",
-		PricePrecision:  1,
-		Amount:          2,
-		Dash:            0.5,
-		DashCoefficient: 100,
+		DashCoefficient: 15,
 	},
 }
