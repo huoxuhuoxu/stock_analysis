@@ -54,7 +54,7 @@ type Group struct {
 	Matching    [2]int    // 配比
 	// 基差临界点数, 预计中可能会存在超跌值, 以此值为起点开始套利, 最关键的一个值
 	Limit             float64
-	Profit            float64 // 利润点数
+	Profit            float64 // 利润点数, 不包含划点, 至少 4% 回报, 实际平仓获利需要叠加划点损失
 	MarginConsumption string  // 组合需要消耗保证金
 	Level             int     // 优先级, 99: 待验证待的逻辑, 100: 等待
 	Describe          string  // 组合逻辑说明
@@ -90,7 +90,7 @@ var groups = []Group{
 		Limit:             5,
 		MarginConsumption: "5",
 		Level:             1,
-		Profit:            30,
+		Profit:            20,
 		Describe: `
 			在原油为主导因素情况下, 
 			利用多空对冲对与原油具有高度相关性的衍生品进行对赌,
@@ -100,13 +100,23 @@ var groups = []Group{
 		`,
 	},
 	Group{
+		Name:              "多远月/空近月",
+		Combination:       [2]string{"sc2009", "sc2006"},
+		Matching:          [2]int{1, 1},
+		Limit:             50,
+		MarginConsumption: "60",
+		Level:             999,
+		Profit:            240,
+		Describe:          ``,
+	},
+	Group{
 		Name:              "多黄金/空白银",
 		Combination:       [2]string{"au2012", "ag2012"},
 		Matching:          [2]int{1, 3},
 		Limit:             30,
 		MarginConsumption: "50",
 		Level:             999,
-		Profit:            150,
+		Profit:            200,
 		Describe: `
 			反套逻辑弱, 不能做
 			但是, 白银跟着黄金走, 可以做参考
@@ -121,7 +131,7 @@ var groups = []Group{
 		Limit:             30,
 		MarginConsumption: "60",
 		Level:             999,
-		Profit:            150,
+		Profit:            240,
 		Describe:          ``,
 	},
 }
@@ -155,5 +165,19 @@ var varietys = map[string]*Variety{
 		PricePrecision:  0,
 		Dash:            1,
 		DashCoefficient: 15,
+	},
+	"sc2006": &Variety{
+		Name:            "原油",
+		OriginDataUrl:   "142_sc2006_qt?callbackName=aa&cb=aa&_=1587309656220",
+		PricePrecision:  1,
+		Dash:            0.1,
+		DashCoefficient: 1000,
+	},
+	"sc2009": &Variety{
+		Name:            "原油",
+		OriginDataUrl:   "142_sc2009_qt?callbackName=aa&cb=aa&_=1587309656220",
+		PricePrecision:  1,
+		Dash:            0.1,
+		DashCoefficient: 1000,
 	},
 }
