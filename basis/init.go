@@ -97,6 +97,20 @@ var groups = []Group{
 			日内会产生 20～40 点的套利机会
 		`,
 	},
+	Group{
+		Name:              "多黄金/空白银",
+		Combination:       [2]string{"au2012", "ag2012"},
+		Limit:             30,
+		MarginConsumption: "50",
+		Level:             999,
+		Profit:            150,
+		Describe: `
+			反套逻辑弱, 不能做
+			但是, 白银跟着黄金走, 可以做参考
+			比如 04/27, 黄金盘中下跌, 白银暂时坚挺, 后跟跌
+			可以用于做提前预判
+		`,
+	},
 }
 
 // 合约集合
@@ -116,5 +130,21 @@ var varietys = map[string]*Variety{
 		Amount:          1,
 		Dash:            1,
 		DashCoefficient: 10,
+	},
+	"au2012": &Variety{
+		Name:            "沪金",
+		OriginDataUrl:   "113_au2012_qt?callbackName=aa&cb=aa&_=1587566439644",
+		PricePrecision:  2,
+		Amount:          1,
+		Dash:            0.02,
+		DashCoefficient: 1000,
+	},
+	"ag2012": &Variety{
+		Name:            "白银",
+		OriginDataUrl:   "113_ag2012_qt?callbackName=aa&cb=aa&_=1587533190507",
+		PricePrecision:  0,
+		Amount:          3,
+		Dash:            1,
+		DashCoefficient: 15,
 	},
 }
