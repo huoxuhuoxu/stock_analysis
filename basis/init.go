@@ -87,8 +87,8 @@ var groups = []Group{
 		Name:              "多黄金/空白银",
 		Combination:       [2]string{"au2012", "ag2012"},
 		Limit:             30,
-		MarginConsumption: "50",
-		Level:             999,
+		MarginConsumption: "60",
+		Level:             1,
 		Profit:            150,
 		Describe: `
 			反套逻辑弱, 不能做
