@@ -164,7 +164,7 @@ var varietys = map[string]*Variety{
 			多沥青空燃油, 只做日内, 预期一个交易日有一到两次机会产生20～30个点的基差
 			不跨日持仓, 日内平仓或者锁定仓位, 不赚跨日的钱, 防止大的风险, 只赚日内价差
 		`,
-		Level:          2,
+		Level:          3,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
@@ -178,7 +178,7 @@ var varietys = map[string]*Variety{
 			不做单边观点, 与沥青联合做
 			逻辑, 同为原油相关性极高的衍生品 沥青的副逻辑基建 强于 燃油的副逻辑航运
 		`,
-		Level:          2,
+		Level:          3,
 		PricePrecision: 0,
 		IsShow:         true,
 	},
