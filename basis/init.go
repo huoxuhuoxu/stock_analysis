@@ -20,7 +20,7 @@ var (
 			basis > profit: 反向/平仓
 			other: 等待
 	*/
-	actions = []string{"等待", "开仓", "反向/平仓"}
+	actions = []string{"等待/平仓", "开仓", "反向"}
 )
 
 const (
@@ -54,10 +54,12 @@ type Group struct {
 	Matching    [2]int    // 配比
 	// 基差临界点数, 预计中可能会存在超跌值, 以此值为起点开始套利, 最关键的一个值
 	Limit             float64
-	Profit            float64 // 利润点数, 不包含划点, 至少 4% 回报, 实际平仓获利需要叠加划点损失
-	MarginConsumption string  // 组合需要消耗保证金
-	Level             int     // 优先级, 99: 待验证待的逻辑, 100: 等待
-	Describe          string  // 组合逻辑说明
+	Profit            float64    // 利润点数, 不包含划点, 至少 4% 回报, 实际平仓获利需要叠加划点损失
+	MarginConsumption string     // 组合需要消耗保证金
+	Level             int        // 优先级, 99: 待验证待的逻辑, 100: 等待
+	Describe          string     // 组合逻辑说明
+	IsAll             bool       // 是否输出其余因子
+	ReasonablePrice   [2]float64 // 相对点位
 }
 
 /*
@@ -75,19 +77,15 @@ type Group struct {
 var groups = []Group{
 	// 套差与趋势跟随
 	Group{
-		// 需要追加基差回归的假设, 在主逻辑影响下
-		// 为什么对赌是 多沥青 空燃油 的假设, 为什么不能倒过来, 需要解释
-		// 增加相对锚定价差 2118~2090 : 1622
 		/*
-			建仓反套，建仓反向反套，相对低点锚定相对基差距离，相对基差回归
-			20~40个点, 如果不转跨日, 那就一定要平掉, 一天最多两次机会, 谨记
-
+			20~40个点, 一天最多两次机会, 把握住
+			不跨日, 谨记
 			单边机会还没出现, bu2012=2000, fu2101=1500
 		*/
 		Name:              "多沥青/空燃油",
 		Combination:       [2]string{"bu2012", "fu2101"},
 		Matching:          [2]int{1, 1},
-		Limit:             5,
+		Limit:             10,
 		MarginConsumption: "5",
 		Level:             1,
 		Profit:            20,
@@ -97,7 +95,11 @@ var groups = []Group{
 			赌 沥青副逻辑-基建 强于 燃油副逻辑-航运,
 			不论涨或者跌, 在盘中体现, 沥青强于燃油, 
 			日内会产生 20～40 点的套利机会
+			但是在连续的沥青强于燃油的情况下, 导致这两个品种的基差过于放大,
+			那么接下来就会被修复, 基差回归, 定义 锚定相对价格, 推 基差回归 的相对点位
 		`,
+		IsAll:           true,
+		ReasonablePrice: [2]float64{2118, 1622},
 	},
 	Group{
 		Name:              "多远月/空近月",

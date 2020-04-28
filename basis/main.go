@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math"
 	"net/http"
 	"os"
 	"os/exec"
@@ -81,8 +82,8 @@ func show() {
 				name := fmt.Sprintf("%s/%s", group.Combination[0], group.Combination[1])
 				// 每一组的持仓比
 				matching := fmt.Sprintf("%d:%d", matchingA, matchingB)
-				// 每一组的平仓划点需要付出的价格
-				expenditure := curA.Dash*curA.DashCoefficient*float64(matchingA) + curB.Dash*curB.DashCoefficient*float64(matchingB)
+				// 每一组的平仓划点需要付出的价格, 不考虑划点了, 如果盈利值得平仓, 可以不考虑划点的折损
+				// expenditure := curA.Dash*curA.DashCoefficient*float64(matchingA) + curB.Dash*curB.DashCoefficient*float64(matchingB)
 
 				// 有效精度
 				ppA := fmt.Sprintf("%%.%df", curA.PricePrecision)
@@ -94,20 +95,63 @@ func show() {
 
 				// 判断操作行为
 				aI := 0
-				if basis <= group.Limit {
+				// 按0基差, 上下一定基差数, 作为适合开仓的定义
+				if math.Abs(basis) <= group.Limit {
 					aI = 1
-				}
-				if basis >= group.Profit {
-					aI = 2
 				}
 
 				// show
-				fmt.Printf("%s, %.0f, "+pp+", "+pp+", %s, %.0f, %s, %s\n",
-					name,
-					basis,
-					curA.Price, curB.Price,
-					curA.Value, curB.Value,
-					matching, expenditure, actions[aI], group.MarginConsumption)
+				if group.IsAll {
+					// 相对价格的基点距离
+					curAReaPrice := curA.Price - group.ReasonablePrice[0]
+					curBReaPrice := curB.Price - group.ReasonablePrice[1]
+
+					// 相对比例情况
+					reaRatio := group.ReasonablePrice[0] / group.ReasonablePrice[1]
+					/*
+						相对回归的基点距离与原始比例的差值, 正: 0多了, 负: 1多了
+						假设:
+							差值比在 20% 以内, 认为是正常
+							> +20%, 认为 可以进行 反向反套
+							< -20%, 认为 可以进行 反套
+					*/
+					priceRatio := -(reaRatio - curAReaPrice/curBReaPrice) * 100
+
+					/*
+						当前的基点相对距离出现大的单边
+							+20%, 反向建仓
+							-20%, 正向建仓, 不需要管limit
+					*/
+					if priceRatio > 20 || priceRatio < -20 {
+						if priceRatio > 20 {
+							aI = 2
+						}
+						if priceRatio < -20 {
+							aI = 1
+						}
+					}
+
+					fmt.Printf("%s, %.0f, "+pp+", "+pp+", %s, %s, %s, "+pp+", %.2f\n",
+						name,
+						basis,
+						curA.Price, curB.Price,
+						curA.Value, curB.Value,
+						matching,
+						actions[aI],
+						group.MarginConsumption,
+						curAReaPrice, curBReaPrice,
+						priceRatio,
+					)
+				} else {
+					fmt.Printf("%s, %.0f, "+pp+", "+pp+", %s, %s\n",
+						name,
+						basis,
+						curA.Price, curB.Price,
+						curA.Value, curB.Value,
+						matching,
+						group.MarginConsumption,
+					)
+				}
 
 				fmt.Println("----")
 			}
