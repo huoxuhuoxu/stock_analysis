@@ -75,7 +75,7 @@ var varietys = map[string]*Variety{
 		Aims:          "",
 		Describe: `
 		`,
-		Level:          1,
+		Level:          2,
 		PricePrecision: 1,
 		IsShow:         true,
 	},
@@ -93,7 +93,7 @@ var varietys = map[string]*Variety{
 			暂看震荡下行
 		`,
 
-		Level:          1,
+		Level:          2,
 		PricePrecision: 1,
 		IsShow:         true,
 	},
