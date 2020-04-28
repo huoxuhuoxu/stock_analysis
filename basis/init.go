@@ -88,7 +88,7 @@ var groups = []Group{
 		Combination:       [2]string{"au2012", "ag2012"},
 		Limit:             30,
 		MarginConsumption: "60",
-		Level:             1,
+		Level:             999,
 		Profit:            150,
 		Describe: `
 			反套逻辑弱, 不能做
