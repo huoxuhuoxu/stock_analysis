@@ -105,7 +105,7 @@ var groups = []Group{
 		Matching:          [2]int{1, 1},
 		Limit:             50,
 		MarginConsumption: "60",
-		Level:             999,
+		Level:             1,
 		Profit:            240,
 		Describe:          ``,
 	},
