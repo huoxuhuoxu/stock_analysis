@@ -73,12 +73,16 @@ func show() {
 					continue
 				}
 
+				// 对冲配比
+				matchingA := group.Matching[0]
+				matchingB := group.Matching[1]
+
 				// 组合名称
 				name := fmt.Sprintf("%s/%s", group.Combination[0], group.Combination[1])
 				// 每一组的持仓比
-				matching := fmt.Sprintf("%d:%d", curA.Amount, curB.Amount)
+				matching := fmt.Sprintf("%d:%d", matchingA, matchingB)
 				// 每一组的平仓划点需要付出的价格
-				expenditure := curA.Dash*curA.DashCoefficient*float64(curA.Amount) + curB.Dash*curB.DashCoefficient*float64(curB.Amount)
+				expenditure := curA.Dash*curA.DashCoefficient*float64(matchingA) + curB.Dash*curB.DashCoefficient*float64(matchingB)
 
 				// 有效精度
 				ppA := fmt.Sprintf("%%.%df", curA.PricePrecision)
@@ -86,7 +90,7 @@ func show() {
 				pp := fmt.Sprintf("%s/%s", ppA, ppB)
 
 				// 基差=(A的涨幅*A的手数*A每手的数量 - B同理) / 10, 1点=10元, 规整
-				basis := (curA.Value*float64(curA.Amount)*curA.DashCoefficient - curB.Value*float64(curB.Amount)*curB.DashCoefficient) / 10
+				basis := (curA.Value*float64(matchingA)*curA.DashCoefficient - curB.Value*float64(matchingB)*curB.DashCoefficient) / 10
 
 				// 判断操作行为
 				aI := 0

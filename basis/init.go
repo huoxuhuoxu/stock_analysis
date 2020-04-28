@@ -51,6 +51,7 @@ type Variety struct {
 type Group struct {
 	Name        string    // 组合名称
 	Combination [2]string // 包含合约, 持仓方向(0: 多, 1: 空)
+	Matching    [2]int    // 配比
 	// 基差临界点数, 预计中可能会存在超跌值, 以此值为起点开始套利, 最关键的一个值
 	Limit             float64
 	Profit            float64 // 利润点数
@@ -85,6 +86,7 @@ var groups = []Group{
 		*/
 		Name:              "多沥青/空燃油",
 		Combination:       [2]string{"bu2012", "fu2101"},
+		Matching:          [2]int{1, 1},
 		Limit:             5,
 		MarginConsumption: "5",
 		Level:             1,
@@ -100,6 +102,7 @@ var groups = []Group{
 	Group{
 		Name:              "多黄金/空白银",
 		Combination:       [2]string{"au2012", "ag2012"},
+		Matching:          [2]int{1, 3},
 		Limit:             30,
 		MarginConsumption: "50",
 		Level:             999,
@@ -111,6 +114,16 @@ var groups = []Group{
 			可以用于做提前预判
 		`,
 	},
+	Group{
+		Name:              "多黄金/空白银",
+		Combination:       [2]string{"au2012", "ag2012"},
+		Matching:          [2]int{1, 5},
+		Limit:             30,
+		MarginConsumption: "60",
+		Level:             999,
+		Profit:            150,
+		Describe:          ``,
+	},
 }
 
 // 合约集合
@@ -119,7 +132,6 @@ var varietys = map[string]*Variety{
 		Name:            "沥青",
 		OriginDataUrl:   "113_bu2012_qt?callbackName=aa&cb=aa&_=1587532980754",
 		PricePrecision:  0,
-		Amount:          1,
 		Dash:            2,
 		DashCoefficient: 10,
 	},
@@ -127,7 +139,6 @@ var varietys = map[string]*Variety{
 		Name:            "燃油",
 		OriginDataUrl:   "113_fu2101_qt?callbackName=aa&cb=aa&_=1587533000837",
 		PricePrecision:  0,
-		Amount:          1,
 		Dash:            1,
 		DashCoefficient: 10,
 	},
@@ -135,7 +146,6 @@ var varietys = map[string]*Variety{
 		Name:            "沪金",
 		OriginDataUrl:   "113_au2012_qt?callbackName=aa&cb=aa&_=1587566439644",
 		PricePrecision:  2,
-		Amount:          1,
 		Dash:            0.02,
 		DashCoefficient: 1000,
 	},
@@ -143,7 +153,6 @@ var varietys = map[string]*Variety{
 		Name:            "白银",
 		OriginDataUrl:   "113_ag2012_qt?callbackName=aa&cb=aa&_=1587533190507",
 		PricePrecision:  0,
-		Amount:          3,
 		Dash:            1,
 		DashCoefficient: 15,
 	},
