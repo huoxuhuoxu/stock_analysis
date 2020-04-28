@@ -161,7 +161,7 @@ var varietys = map[string]*Variety{
 		Name:            "白银",
 		OriginDataUrl:   "113_ag2012_qt?callbackName=aa&cb=aa&_=1587533190507",
 		PricePrecision:  0,
-		Amount:          3,
+		Amount:          5,
 		Dash:            1,
 		DashCoefficient: 15,
 	},
