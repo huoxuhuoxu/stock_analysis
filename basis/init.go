@@ -1,5 +1,7 @@
 package main
 
+// 命名 - 上帝之手
+
 var (
 	headers = map[string]string{
 		"Accept":                    " text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
