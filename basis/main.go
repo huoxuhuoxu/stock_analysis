@@ -107,7 +107,7 @@ func show() {
 					curBReaPrice := curB.Price - group.ReasonablePrice[1]
 
 					// 相对比例情况
-					reaRatio := group.ReasonablePrice[0] / group.ReasonablePrice[1]
+					reaRatio := (group.ReasonablePrice[0] / float64(matchingA)) / (group.ReasonablePrice[1] / float64(matchingB))
 					/*
 						相对回归的基点距离与原始比例的差值, 正: 0多了, 负: 1多了
 						假设:
@@ -115,18 +115,18 @@ func show() {
 							> +20%, 认为 可以进行 反向反套
 							< -20%, 认为 可以进行 反套
 					*/
-					priceRatio := -(reaRatio - curAReaPrice/curBReaPrice) * 100
+					priceRatio := -(reaRatio-(curAReaPrice/float64(matchingA))/(curBReaPrice/float64(matchingB)))*100 - group.VarietyDifference*float64(matchingB)
 
 					/*
 						当前的基点相对距离出现大的单边
 							+30%, 反向建仓
 							-30%, 正向建仓, 不需要管limit
 					*/
-					if priceRatio > BOUNDARY || priceRatio < -BOUNDARY {
-						if priceRatio > BOUNDARY {
+					if priceRatio > group.Boundary || priceRatio < -group.Boundary {
+						if priceRatio > group.Boundary {
 							aI = 2
 						}
-						if priceRatio < -BOUNDARY {
+						if priceRatio < -group.Boundary {
 							aI = 1
 						}
 					}

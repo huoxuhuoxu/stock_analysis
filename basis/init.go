@@ -28,7 +28,6 @@ var (
 
 const (
 	ORIGIN_URL = "http://futsse.eastmoney.com/static/"
-	BOUNDARY   = 30 // 反向边界
 )
 
 // 合约
@@ -64,6 +63,8 @@ type Group struct {
 	Describe          string     // 组合逻辑说明
 	IsAll             bool       // 是否输出其余因子
 	ReasonablePrice   [2]float64 // 相对点位
+	VarietyDifference float64    // 品种差比, 空方品种天生比多方品种差异/劣势x%走势
+	Boundary          float64    // 基点距离百分比临界线
 }
 
 /*
@@ -115,8 +116,10 @@ var groups = []Group{
 			但是在连续的沥青强于燃油的情况下, 导致这两个品种的基差过于放大,
 			那么接下来就会被修复, 基差回归, 定义 锚定相对价格, 推 基差回归 的相对点位
 		`,
-		IsAll:           true,
-		ReasonablePrice: [2]float64{2118, 1622},
+		IsAll:             true,
+		ReasonablePrice:   [2]float64{2118, 1622},
+		Boundary:          30,
+		VarietyDifference: 0,
 	},
 	/*
 		06/09 没有走出真正意义上的盘中分化行情, 很同步
@@ -158,7 +161,7 @@ var groups = []Group{
 		Name:              "多黄金/空白银",
 		Combination:       [2]string{"au2012", "ag2012"},
 		Matching:          [2]int{1, 3},
-		Limit:             50,
+		Limit:             30,
 		MarginConsumption: "50",
 		Level:             999,
 		Profit:            200,
@@ -168,16 +171,10 @@ var groups = []Group{
 			比如 04/27, 黄金盘中下跌, 白银暂时坚挺, 后跟跌
 			可以用于做提前预判
 		`,
-	},
-	Group{
-		Name:              "多黄金/空白银",
-		Combination:       [2]string{"au2012", "ag2012"},
-		Matching:          [2]int{1, 5},
-		Limit:             50,
-		MarginConsumption: "60",
-		Level:             999,
-		Profit:            240,
-		Describe:          ``,
+		IsAll:             true,
+		ReasonablePrice:   [2]float64{264.9, 3470},
+		Boundary:          50,
+		VarietyDifference: 30,
 	},
 }
 
