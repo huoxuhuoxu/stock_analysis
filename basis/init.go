@@ -17,14 +17,16 @@ var (
 	/*
 		@desc
 			basis < limit: 开仓
-			basis > profit: 反向/平仓
+			basis > BOUNDARY: 反向
 			other: 等待
+			Profit: 自己把握
 	*/
 	actions = []string{"等待/平仓", "开仓", "反向"}
 )
 
 const (
 	ORIGIN_URL = "http://futsse.eastmoney.com/static/"
+	BOUNDARY   = 30 // 反向边界
 )
 
 // 合约

@@ -119,14 +119,14 @@ func show() {
 
 					/*
 						当前的基点相对距离出现大的单边
-							+20%, 反向建仓
-							-20%, 正向建仓, 不需要管limit
+							+30%, 反向建仓
+							-30%, 正向建仓, 不需要管limit
 					*/
-					if priceRatio > 20 || priceRatio < -20 {
-						if priceRatio > 20 {
+					if priceRatio > BOUNDARY || priceRatio < -BOUNDARY {
+						if priceRatio > BOUNDARY {
 							aI = 2
 						}
-						if priceRatio < -20 {
+						if priceRatio < -BOUNDARY {
 							aI = 1
 						}
 					}
