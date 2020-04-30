@@ -115,7 +115,7 @@ func show() {
 							> +20%, 认为 可以进行 反向反套
 							< -20%, 认为 可以进行 反套
 					*/
-					priceRatio := -(reaRatio-(curAReaPrice/float64(matchingA))/(curBReaPrice/float64(matchingB)))*100 - group.VarietyDifference*float64(matchingB)
+					priceRatio := -(reaRatio - (curAReaPrice/float64(matchingA))/(curBReaPrice/float64(matchingB))) * 100
 
 					/*
 						当前的基点相对距离出现大的单边
@@ -131,25 +131,23 @@ func show() {
 						}
 					}
 
-					fmt.Printf("%s, %.0f, "+pp+", "+pp+", %s, %s, %s, "+pp+", %.2f\n",
+					fmt.Printf("%s, %.0f, "+pp+", "+pp+", %s, %s, "+pp+", %.2f\n",
 						name,
 						basis,
 						curA.Price, curB.Price,
 						curA.Value, curB.Value,
 						matching,
 						actions[aI],
-						group.MarginConsumption,
 						curAReaPrice, curBReaPrice,
 						priceRatio,
 					)
 				} else {
-					fmt.Printf("%s, %.0f, "+pp+", "+pp+", %s, %s\n",
+					fmt.Printf("%s, %.0f, "+pp+", "+pp+", %s\n",
 						name,
 						basis,
 						curA.Price, curB.Price,
 						curA.Value, curB.Value,
 						matching,
-						group.MarginConsumption,
 					)
 				}
 

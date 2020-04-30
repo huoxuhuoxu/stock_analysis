@@ -56,15 +56,13 @@ type Group struct {
 	Combination [2]string // 包含合约, 持仓方向(0: 多, 1: 空)
 	Matching    [2]int    // 配比
 	// 基差临界点数, 预计中可能会存在超跌值, 以此值为起点开始套利, 最关键的一个值
-	Limit             float64
-	Profit            float64    // 利润点数, 不包含划点, 至少 4% 回报, 实际平仓获利需要叠加划点损失
-	MarginConsumption string     // 组合需要消耗保证金
-	Level             int        // 优先级, 99: 待验证待的逻辑, 100: 等待
-	Describe          string     // 组合逻辑说明
-	IsAll             bool       // 是否输出其余因子
-	ReasonablePrice   [2]float64 // 相对点位
-	VarietyDifference float64    // 品种差比, 空方品种天生比多方品种差异/劣势x%走势
-	Boundary          float64    // 基点距离百分比临界线
+	Limit           float64
+	Profit          float64    // 利润点数, 不包含划点, 至少 4% 回报, 实际平仓获利需要叠加划点损失
+	Level           int        // 优先级, 99: 待验证待的逻辑, 100: 等待
+	Describe        string     // 组合逻辑说明
+	IsAll           bool       // 是否输出其余因子
+	ReasonablePrice [2]float64 // 相对点位
+	Boundary        float64    // 基点距离百分比临界线
 }
 
 /*
@@ -82,6 +80,8 @@ type Group struct {
 	一天能够把握住一次就够了, 两次就是赚大了, 三次一年百万不是梦, 但是啊, 小心谨慎为上
 
 	反套: 2/天, 原油单边: 2/周, 这是可以做的情况下, 最大可出手次数, 并且只做盘中套利, 对赌分化行情, 不做跨日行情
+
+	回归 只能做 1:1 配比的, 其他很难
 */
 
 // 真要做黄金/白银的话, 也需要加入反向系统, 也可能无法做套, 只能做跟随的逻辑
@@ -109,13 +109,12 @@ var groups = []Group{
 			需要做盈利假设, 假设开盘0价差为合理开盘基差, 那么每天最多20～40个点分化, 也就是基差20～40,
 			那么开盘20个点基差开盘是否需要开仓就需要考虑了, 那就意味着基差除非走到 40, 否则不满足最低盈利基差数
 		*/
-		Name:              "多沥青/空燃油",
-		Combination:       [2]string{"bu2012", "fu2101"},
-		Matching:          [2]int{1, 1},
-		Limit:             10,
-		MarginConsumption: "5",
-		Level:             1,
-		Profit:            20,
+		Name:        "多沥青/空燃油",
+		Combination: [2]string{"bu2012", "fu2101"},
+		Matching:    [2]int{1, 1},
+		Limit:       10,
+		Level:       1,
+		Profit:      20,
 		Describe: `
 			在原油为主导因素情况下, 
 			利用多空对冲对与原油具有高度相关性的衍生品进行对赌,
@@ -125,10 +124,9 @@ var groups = []Group{
 			但是在连续的沥青强于燃油的情况下, 导致这两个品种的基差过于放大,
 			那么接下来就会被修复, 基差回归, 定义 锚定相对价格, 推 基差回归 的相对点位
 		`,
-		IsAll:             true,
-		ReasonablePrice:   [2]float64{2118, 1622},
-		Boundary:          30,
-		VarietyDifference: 0,
+		IsAll:           true,
+		ReasonablePrice: [2]float64{2118, 1622},
+		Boundary:        30,
 	},
 	/*
 		06/09 没有走出真正意义上的盘中分化行情, 很同步
@@ -137,53 +135,57 @@ var groups = []Group{
 		所以, 如果要做原油的 远月/近月 对冲套利的话, 12合约是需要多的, 至于空 06还是09 各有利弊, 再看看
 	*/
 	Group{
-		Name:              "多远月/空近月",
-		Combination:       [2]string{"sc2009", "sc2006"},
-		Matching:          [2]int{1, 1},
-		Limit:             100,
-		MarginConsumption: "60",
-		Level:             2,
-		Profit:            240,
-		Describe:          ``,
+		Name:            "多远月/空近月",
+		Combination:     [2]string{"sc2009", "sc2006"},
+		Matching:        [2]int{1, 1},
+		Limit:           100,
+		Level:           2,
+		Profit:          240,
+		Describe:        ``,
+		IsAll:           true,
+		ReasonablePrice: [2]float64{249, 205.1},
+		Boundary:        60,
 	},
 	Group{
-		Name:              "多远月/空近月",
-		Combination:       [2]string{"sc2012", "sc2006"},
-		Matching:          [2]int{1, 1},
-		Limit:             100,
-		MarginConsumption: "60",
-		Level:             2,
-		Profit:            240,
-		Describe:          ``,
+		Name:            "多远月/空近月",
+		Combination:     [2]string{"sc2012", "sc2006"},
+		Matching:        [2]int{1, 1},
+		Limit:           100,
+		Level:           2,
+		Profit:          240,
+		Describe:        ``,
+		IsAll:           true,
+		ReasonablePrice: [2]float64{278.6, 205.1},
+		Boundary:        100,
 	},
 	Group{
-		Name:              "多远月/空近月",
-		Combination:       [2]string{"sc2012", "sc2009"},
-		Matching:          [2]int{1, 1},
-		Limit:             100,
-		MarginConsumption: "60",
-		Level:             2,
-		Profit:            240,
-		Describe:          ``,
+		Name:            "多远月/空近月",
+		Combination:     [2]string{"sc2012", "sc2009"},
+		Matching:        [2]int{1, 1},
+		Limit:           100,
+		Level:           2,
+		Profit:          240,
+		Describe:        ``,
+		IsAll:           true,
+		ReasonablePrice: [2]float64{278.6, 249},
+		Boundary:        40,
 	},
 	Group{
-		Name:              "多黄金/空白银",
-		Combination:       [2]string{"au2012", "ag2012"},
-		Matching:          [2]int{1, 3},
-		Limit:             30,
-		MarginConsumption: "50",
-		Level:             999,
-		Profit:            200,
+		Name:        "多黄金/空白银",
+		Combination: [2]string{"au2012", "ag2012"},
+		Matching:    [2]int{1, 3},
+		Limit:       30,
+		Level:       999,
+		Profit:      200,
 		Describe: `
 			反套逻辑弱, 不能做
 			但是, 白银跟着黄金走, 可以做参考
 			比如 04/27, 黄金盘中下跌, 白银暂时坚挺, 后跟跌
 			可以用于做提前预判
 		`,
-		IsAll:             true,
-		ReasonablePrice:   [2]float64{264.9, 3470},
-		Boundary:          50,
-		VarietyDifference: 30,
+		IsAll:           true,
+		ReasonablePrice: [2]float64{264.9, 3470},
+		Boundary:        60,
 	},
 }
 
