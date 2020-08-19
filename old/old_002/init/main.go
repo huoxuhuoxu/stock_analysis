@@ -114,7 +114,7 @@ func main() {
 			if err != nil {
 				continue
 			}
-			if tmpV < 5 {
+			if tmpV <= 20 && tmpV >= 8 {
 				fmt.Printf("|"+strings.Repeat("%-14s", 7)+"\r\n",
 					arr[2], arr[1], arr[3], arr[5], arr[7], arr[16], arr[17])
 

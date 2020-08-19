@@ -9,8 +9,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/huoxuhuoxu/UseGoexPackaging/diyLog"
-	"github.com/huoxuhuoxu/UseGoexPackaging/systemRp"
+	"github.com/qdtec/UseGoexPackaging/diyLog"
+	"github.com/qdtec/UseGoexPackaging/systemRp"
 )
 
 type MainControl struct {
