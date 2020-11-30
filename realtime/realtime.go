@@ -23,7 +23,7 @@ func NewRealTime(mc *base.MainControl, isDebug bool) (*RealTime, error) {
 	self := &RealTime{
 		MainControl:               mc,
 		loopIntervalTime:          time.Second * 10,
-		filterLen:                 100,
+		filterLen:                 50,
 		estimatedCloseCoefficient: 1.01,
 		estimatedLowCoefficient:   0.995,
 		isDebug:                   isDebug,
