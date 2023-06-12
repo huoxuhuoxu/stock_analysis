@@ -9,3 +9,4 @@ index_details/*
 *.db
 *.html
 *.txt
+lhf/data_csv/*.csv
