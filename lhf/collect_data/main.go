@@ -15,8 +15,8 @@ const (
 	/// 单一历史
 	_data_url_1 = "http://23.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery3510524062431730671_1686623015466&secid=%s.%s&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61&klt=101&fqt=1&end=20500101&lmt=%s&_=1686623015519"
 
-	/// 指数历史
-	_data_url_7 = "http://62.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery351023429915107462018_1688610668005&secid=%s.%s&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61&klt=101&fqt=1&end=20500101&lmt=%s&_=1688610668069"
+	/// 指数历史 ---- 直接写就行, 按照全股信息的逻辑
+	// _data_url_7 = "http://62.push2his.eastmoney.com/api/qt/stock/kline/get?cb=jQuery351023429915107462018_1688610668005&secid=%s.%s&ut=fa5fd1943c7b386f172d6893dbfba10b&fields1=f1,f2,f3,f4,f5,f6&fields2=f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61&klt=101&fqt=1&end=20500101&lmt=%s&_=1688610668069"
 
 	/// 全深
 	_data_url_11 = "http://45.push2.eastmoney.com/api/qt/clist/get?cb=jQuery112408281517578650619_1686625536243&pn=1&pz=5000&po=1&np=1&ut=bd1d9ddb04089700cf9c27f6f7426281&fltt=2&invt=2&wbp2u=|0|0|0|web&fid=f3&fs=m:0+t:6,m:0+t:80&fields=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152&_=1686625536244"
